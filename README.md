@@ -175,8 +175,4 @@ pnpm lint     # Run ESLint
 
 ## License
 
-This project uses a dual license:
-
-- **Code** (MIT License) — The website code, components, and configuration are licensed under the [MIT License](https://opensource.org/licenses/MIT). Feel free to use this as a starting point for your own site!
-
-- **Content** (CC BY-NC-ND 4.0) — All blog posts, images, and personal content in the `content/` and `public/images/` directories are licensed under [Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International](https://creativecommons.org/licenses/by-nc-nd/4.0/). You may share with attribution, but no commercial use or modifications.
+Copyright © 2026 Chris Turgeon. All Rights Reserved. See [LICENSE.md](LICENSE.md) for details.
