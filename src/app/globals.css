@@ -1,0 +1,230 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+/* Color palette - warm, editorial aesthetic */
+:root {
+  --background: #faf8f5;
+  --foreground: #1a1a1a;
+  --accent: #c9553d;
+  --accent-hover: #a84432;
+  --muted: #6b6b6b;
+  --border: #e5e2dd;
+  --card: #ffffff;
+  --card-hover: #f5f3f0;
+}
+
+.dark {
+  --background: #121210;
+  --foreground: #f5f3f0;
+  --accent: #e07a5f;
+  --accent-hover: #d96647;
+  --muted: #9a9a9a;
+  --border: #2a2a28;
+  --card: #1a1a18;
+  --card-hover: #222220;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-card: var(--card);
+  --color-card-hover: var(--card-hover);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Selection styling */
+::selection {
+  background: var(--accent);
+  color: white;
+}
+
+/* Custom prose styles for blog content */
+.prose {
+  --tw-prose-body: var(--foreground);
+  --tw-prose-headings: var(--foreground);
+  --tw-prose-links: var(--accent);
+  --tw-prose-bold: var(--foreground);
+  --tw-prose-counters: var(--muted);
+  --tw-prose-bullets: var(--muted);
+  --tw-prose-hr: var(--border);
+  --tw-prose-quotes: var(--foreground);
+  --tw-prose-quote-borders: var(--accent);
+  --tw-prose-captions: var(--muted);
+  --tw-prose-code: var(--foreground);
+  --tw-prose-pre-code: #f5f3f0;
+  --tw-prose-pre-bg: #1a1a18;
+  --tw-prose-th-borders: var(--border);
+  --tw-prose-td-borders: var(--border);
+}
+
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4 {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+
+.prose a {
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  transition: color 0.2s ease;
+}
+
+.prose a:hover {
+  color: var(--accent-hover);
+}
+
+.prose code {
+  background: var(--border);
+  padding: 0.2em 0.4em;
+  border-radius: 4px;
+  font-size: 0.9em;
+}
+
+.prose pre code {
+  background: none;
+  padding: 0;
+}
+
+.prose img {
+  border-radius: 8px;
+  margin: 2rem auto;
+}
+
+.prose blockquote {
+  border-left-width: 3px;
+  font-style: italic;
+  background: var(--card);
+  padding: 1rem 1.5rem;
+  border-radius: 0 8px 8px 0;
+}
+
+/* Subtle gradient background effect */
+.gradient-bg {
+  background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(201, 85, 61, 0.08), transparent), var(--background);
+}
+
+/* Animated underline for links */
+.link-underline {
+  position: relative;
+}
+
+.link-underline::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--accent);
+  transition: width 0.3s ease;
+}
+
+.link-underline:hover::after {
+  width: 100%;
+}
+
+/* Page transition animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+.animate-fade-in-delay-1 {
+  animation: fadeIn 0.5s ease-out 0.1s forwards;
+  opacity: 0;
+}
+
+.animate-fade-in-delay-2 {
+  animation: fadeIn 0.5s ease-out 0.2s forwards;
+  opacity: 0;
+}
+
+.animate-fade-in-delay-3 {
+  animation: fadeIn 0.5s ease-out 0.3s forwards;
+  opacity: 0;
+}
+
+/* Lightbox animation */
+@keyframes lightboxEnter {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-lightbox-enter {
+  animation: lightboxEnter 0.3s ease-out forwards;
+}
+
+/* Gallery card staggered animations */
+@keyframes galleryCardEnter {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-gallery-card {
+  animation: galleryCardEnter 0.5s ease-out forwards;
+  opacity: 0;
+}
+
+/* Image zoom on hover */
+.gallery-image-zoom {
+  transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.gallery-image-zoom:hover {
+  transform: scale(1.05);
+}
+
+/* Smooth shimmer loading effect */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg, var(--card) 25%, var(--card-hover) 50%, var(--card) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+}

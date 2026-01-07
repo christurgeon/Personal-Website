@@ -1,0 +1,611 @@
+---
+title: "Lessons for Production Engineering: A Linux Debugging Field Guide"
+date: "2026-01-20"
+excerpt: "A field guide to the Linux commands and debugging techniques that matter most when production systems go sideways."
+tags: ["linux", "debugging", "production-engineering", "system-administration", "performance-tuning", "devops"]
+---
+
+Over the years of responding to production incidents and performance issues,
+I've accumulated a collection of commands and techniques that have proven invaluable when things go sideways.
+This isn't meant to be an exhaustive reference. Think of it more as a field guide compiled from battles in the trenches of production systems.
+
+## When You First Land on a Troubled Server
+
+Picture this: you SSH into a server that's experiencing issues. Where do you start?
+
+### Know Your Context
+Before diving into diagnostics, orient yourself. Who are you, and what permissions do you have?
+
+```bash
+whoami          # your current username
+id              # your user ID, group ID, and group memberships
+groups          # list all groups you belong to
+```
+
+See who else is on the system:
+
+```bash
+who             # currently logged in users
+w               # who is logged in and what they're doing
+last            # history of logins
+```
+
+This context matters more than you might think.
+If you're not root or don't have sudo access, you'll need to request elevated permissions.
+And if you see multiple engineers logged in during an incident, coordinate to avoid stepping on each other's troubleshooting efforts.
+
+Check your current privileges:
+
+```bash
+sudo -l         # list what sudo commands you can run
+```
+
+If you need to switch users or elevate privileges:
+
+```bash
+sudo -i         # become root with root's environment
+```
+
+### Figure Out What's Running
+
+Now that you know who you are and what you can do, the first technical goal is simple: figure out what's actually running on this box.
+
+Start by looking at the heaviest resource consumers. I typically reach for a combination of `ps` and `top`:
+
+```bash
+ps -eo pid,ppid,cmd,%mem,%cpu --sort=-%cpu | head -20
+```
+
+This gives you the top 20 processes sorted by CPU usage. The "core application" is usually the long-running process consuming the most resources,
+often owned by a dedicated service account rather than root. However, this is not always the case...
+
+For a hierarchical view, `pstree` can be illuminating:
+
+```bash
+pstree -ap
+```
+
+Example output:
+
+```
+systemd(1) --system
+  ├─sshd(742) -D
+  │   └─sshd(1331) -D
+  │       └─bash(1340)
+  │           ├─vim(1402) /etc/ssh/sshd_config
+  │           ├─python3(1455) script.py --input data.csv
+  │           └─pstree(1499) -ap
+  ├─cron(601)
+  ├─dbus-daemon(512) --system --address=systemd: --nofork --nopidfile
+  ├─nginx(812) -g daemon off;
+  │   ├─nginx(813) -g daemon off;
+  │   └─nginx(814) -g daemon off;
+  └─docker-containerd(900) --config /etc/docker/containerd/config.toml
+      └─containerd-shim(921) -namespace moby -id abc123
+          └─python(950) app.py --port 8080
+```
+
+This shows parent-child relationships between processes. You might see something like a supervisor process managing multiple workers,
+which immediately tells you about the application architecture.
+
+Don't forget to check what services systemd is managing:
+
+```bash
+systemctl list-units --type=service --state=running
+```
+
+And see what's listening on the network:
+
+```bash
+ss -lntp
+```
+
+That last command often reveals the primary application: if you see Java listening on port 8080 or Python on 5000, you've probably found your app.
+
+## Understanding CPU Pressure
+
+When CPU becomes the bottleneck, you need a systematic approach. I always start with load averages from `uptime`:
+
+```bash
+$ uptime
+9:04pm up 268 day(s), 10:16, 2 users, load average: 7.76, 8.32, 8.60
+```
+
+Those three numbers (1-minute, 5-minute, and 15-minute averages) tell a story. If they're increasing, your problem is getting worse.
+If they're decreasing, you might have already missed the peak of the incident.
+
+Next, I might run `vmstat` with a one-second interval to watch system-wide CPU utilization:
+
+```bash
+vmstat 1
+```
+
+The key columns are `us` (user time), `sy` (system/kernel time), `id` (idle), and `wa` (waiting on I/O). When `us + sy` approaches 100%,
+you're likely experiencing scheduler latency. The `r` column shows runnable threads — a high number here means processes are queuing for CPU time.
+
+For more granular analysis, `mpstat` breaks things down per-CPU,
+helping you spot thread scalability problems where a single hot CPU indicates work that can't be parallelized effectively.
+
+## Network Debugging
+
+Network issues can be subtle. Sometimes connectivity looks fine at first glance but breaks down under specific conditions.
+Here's my standard toolkit:
+
+For DNS resolution, I prefer `dig` over `nslookup` for its cleaner output:
+
+```bash
+dig +short example.fsx.us-east-1.aws.internal A
+dig +short example.fsx.us-east-1.aws.internal AAAA
+```
+
+To test port connectivity, `netcat` is your friend:
+
+```bash
+# IPv4
+nc -4zv target-host.example.com 2049
+
+# IPv6
+nc -6zv target-host.example.com 2049
+```
+
+When you need to see all active connections, `ss` is preferred to the older `netstat`:
+
+```bash
+ss -tulnp
+```
+
+Or filter for a specific port:
+
+```bash
+ss -ltnp 'sport = :2049'
+```
+
+Pay attention to the state of connections. Multiple `ESTABLISHED` connections to the same database port might indicate connection pooling issues or saturation. A large number of `TIME_WAIT` states could suggest connection churn.
+
+For real-time bandwidth monitoring between specific hosts, `iftop` shows you exactly which connections are consuming bandwidth.
+
+And when things get really mysterious, it's time to capture packets:
+
+```bash
+tcpdump -i any -nn -w capture.pcap \
+  'tcp and ((src port 761 and dst port 2049) or (src port 2049 and dst port 761))'
+```
+
+You can then analyze the resulting `.pcap` file in [Wireshark](http://wireshark.org/) to see exactly what's happening on the wire.
+
+## Memory Management and the OOM Killer
+
+Few things are more frustrating than processes being killed by the Out-Of-Memory killer.
+When you suspect this is happening, check the kernel logs:
+
+```bash
+dmesg | grep -i "out of memory"
+journalctl -k | grep -i "oom"
+```
+
+View current memory state with:
+
+```bash
+free -m
+```
+
+In a pinch, you can add temporary swap space, though this is a band-aid, not a solution:
+
+```bash
+sudo fallocate -l 2G /swapfile
+sudo chmod 600 /swapfile
+sudo mkswap /swapfile
+sudo swapon /swapfile
+```
+
+Be warned: adding swap often just masks underlying memory leaks.
+If memory consumption continues to grow, remove the swap and address the root cause.
+
+## Filesystem Mysteries
+
+Disk space issues can manifest in confusing ways. The `df` command gives you a quick overview:
+
+```bash
+df -h  # disk usage
+df -i  # inode usage
+```
+
+But `df` is just an estimate. For accurate numbers, use `du`:
+
+```bash
+du -sh /var/*
+```
+
+A classic scenario: you get an error about `/var` being full. Run `df` to confirm, then use `du` to drill down through subdirectories and find the culprit. For this particular case, maybe log files weren't rotated properly or accumulated too fast.
+
+Understanding the difference between symbolic and hard links can save you from mistakes.
+Symbolic links point to filenames and can cross filesystem boundaries:
+
+```bash
+ln -s /path/to/original /path/to/symlink
+```
+
+Hard links create multiple directory entries pointing to the same inode.
+They can't cross filesystems, but the file persists until all hard links are deleted:
+
+```bash
+ln /path/to/file /path/to/hardlink
+```
+
+## Working with NFS
+
+When debugging NFS issues, you often need to verify both connectivity and protocol specifics. Mount with explicit parameters:
+
+```bash
+# IPv4
+mount -t nfs -o proto=tcp,nfsvers=4.1,rsize=1048576,wsize=1048576,timeo=600 \
+  nfs-server.example.com:/export /mnt/nfs
+
+# IPv6
+mount -t nfs -o proto=tcp6,nfsvers=4.1,rsize=1048576,wsize=1048576,timeo=600 \
+  nfs-server.example.com:/export /mnt/nfs
+```
+
+Check NFS statistics to see what's actually happening:
+
+```bash
+nfsstat -c  # client stats
+nfsstat -s  # server stats
+```
+
+And don't forget `rpcinfo` to verify the RPC services are responding:
+
+```bash
+rpcinfo -p nfs-server.example.com
+```
+
+## Process Debugging
+
+When a process misbehaves, you need to see what it's doing. For stack traces of all threads:
+
+```bash
+PID=2038
+for tid in $(ls /proc/$PID/task); do
+  echo "=== Thread $tid ==="
+  cat /proc/$PID/task/$tid/stack
+done
+```
+
+See what files a process has open:
+
+```bash
+lsof -p <pid>
+```
+
+Attach `strace` to watch system calls in real-time:
+
+```bash
+strace -p <pid> -s 100 -f
+```
+
+And to find which process is using a specific port:
+
+```bash
+lsof -i :8080
+```
+
+## Advanced Techniques: CPU Pinning
+
+On NUMA systems or when you need predictable performance, CPU pinning can make a significant difference. The idea is to bind processes to specific CPUs, improving cache locality and reducing context switches.
+
+Use `taskset` for quick experiments:
+
+```bash
+# Run a new process on CPU 0
+taskset -c 0 ./my_application
+
+# Move existing process to CPUs 0 and 1
+taskset -cp 0,1 1234
+```
+
+For more sophisticated control, use cgroups to create exclusive CPU sets:
+
+```bash
+mkdir -p /sys/fs/cgroup/cpuset/my_app
+cd /sys/fs/cgroup/cpuset/my_app
+echo 2-3 > cpuset.cpus
+echo 0 > cpuset.mems
+echo 1234 > cgroup.procs
+```
+
+Now only CPUs 2 and 3 can execute that process, and other tasks won't interfere.
+This is particularly valuable for latency-sensitive workloads like databases or real-time applications.
+
+## Some Useful Shortcuts
+
+A few commands I use constantly that don't fit neatly into categories:
+
+Elevate to root and stay there:
+```bash
+sudo sudo su
+```
+
+Delete all files except one specific file:
+```bash
+find . -type f ! -name "file_to_keep" -delete
+```
+
+Start the SSH agent if it's not running:
+```bash
+eval "$(ssh-agent -s)"
+```
+
+Check firewall rules:
+```bash
+iptables -S
+ip6tables -S
+```
+
+---
+
+## Scenario: Out-Of-Memory (OOM)
+
+**Cheat-line:** Check logs for OOM → Restart service → Temporarily add swap → Increase memory limits → Escalate
+
+**What's happening:** Your server has exhausted all available RAM, forcing Linux's OOM killer to terminate processes. Critical services may crash or enter a restart loop.
+
+**Red Flags:**
+- Sudden service crash without application errors
+- Kernel logs showing "Out of memory" or "Killed process" messages
+- Services repeatedly restarting
+
+**Quick Confirm:**
+```bash
+dmesg | grep -i "out of memory"
+journalctl -k | grep -i "oom"
+free -m  # shows memory in MB
+top      # press M to sort by memory usage
+```
+
+**Immediate Mitigation:**
+```bash
+# Restart affected service
+sudo systemctl restart <service-name>
+
+# Add temporary swap (fast local SSD only)
+sudo fallocate -l 2G /swapfile
+sudo chmod 600 /swapfile
+sudo mkswap /swapfile
+sudo swapon /swapfile
+```
+
+You may need to consider rolling back the pipeline and deploying a previous version of the code if you suspect it's a recent deployment that is faulty.
+
+**Warning:** Creating swap may hide underlying memory leaks. Remove it as soon as possible:
+```bash
+sudo swapoff /swapfile && sudo rm /swapfile
+```
+
+**Long-Term Fix:**
+- Diagnose memory leaks by sharing memory graphs with developers
+- For C++: provide core dumps for analysis with gdb/Valgrind
+- For Python: use `tracemalloc` in test environments
+- Implement cache size limits and TTL settings
+- Configure proper memory limits in container orchestration
+
+**Beginner Tip:** If you see "OOM" in kernel logs, restart the killed process and monitor with `top` to check if memory consumption climbs again.
+
+---
+
+## Scenario: Detecting Memory Leaks
+
+Memory leaks occur when programs continuously allocate memory without releasing it, eventually consuming all available RAM.
+
+**Step-by-Step Detection:**
+
+```bash
+# 1. SSH into server
+ssh user@your-server-ip
+
+# 2. Check system-wide memory usage
+free -m
+
+# 3. Find memory-consuming processes
+top -o %MEM  # Press Shift+M to sort by memory
+# Or:
+ps aux --sort=-%mem | head
+
+# 4. Confirm memory is not being freed
+watch -n 2 'ps -o pid,cmd,%mem,%cpu --sort=-%mem | head'
+# Let this run for several minutes—if %MEM keeps increasing, you have a leak
+
+# 5. Check file descriptor leaks
+sudo lsof -p <PID> | wc -l
+# Run every 10-30 seconds—if count keeps rising, you have an FD leak
+```
+
+**For C/C++ Applications:**
+```bash
+# Stop the server and run under Valgrind
+valgrind --leak-check=full ./myapp
+```
+
+Sample output showing a leak:
+```
+==1234== 10,240 bytes in 2 blocks are definitely lost in loss record 42 of 78
+==1234==    at 0x4C2FB55: malloc (vg_replace_malloc.c:299)
+==1234==    by 0x401234: some_func (main.c:25)
+==1234==    by 0x401567: main (main.c:45)
+```
+
+**For Python Applications:**
+```python
+import tracemalloc
+tracemalloc.start()
+# ... run your code ...
+snapshot = tracemalloc.take_snapshot()
+top_stats = snapshot.statistics('lineno')
+for stat in top_stats[:10]:
+    print(stat)
+```
+
+**Heap Profiling:**
+- Use `gperftools` (tcmalloc) for live heap profiling
+- Use `jemalloc` for heap introspection and runtime stats
+
+---
+
+## Scenario: Debugging Failed Mount Points
+
+When `ls` fails on a mount point, you need to understand what went wrong with the filesystem attachment.
+
+**Understanding Mounting:**
+- Mounting makes a filesystem accessible at a directory (mount point)
+- Common types: local (ext4, xfs), network (NFS, CIFS), virtual (tmpfs, proc)
+
+**Debugging Strategy:**
+
+```bash
+# 1. Check current mounts
+mount | grep /mnt/myshare
+# Or:
+findmnt /mnt/myshare
+
+# 2. Verify mount point directory
+ls -ld /mnt/myshare
+
+# 3. Check kernel logs
+dmesg | tail -50
+
+# Sample problematic output:
+# [223.938439] nfs: server 192.168.1.10 not responding, still trying
+# [224.942345] nfs: mount option 'vers=3' not supported
+
+# 4. Check syslog
+grep -i mount /var/log/syslog
+
+# 5. Check what's using the mount
+lsof +D /mnt/myshare
+
+# 6. Verify network connectivity (for NFS/CIFS)
+ping 192.168.1.10
+telnet 192.168.1.10 2049  # NFS port
+
+# 7. Use strace to debug mount syscalls
+strace -f mount -t nfs 192.168.1.10:/export /mnt/myshare
+```
+
+**Common Failure Scenarios:**
+
+**Scenario: `ls /mnt/myshare` hangs**
+- Root cause: NFS server unreachable or hard mount hanging
+- Solution: Use soft mount with timeout
+```bash
+mount -t nfs -o soft,timeo=2 192.168.1.10:/export /mnt/myshare
+```
+
+**Scenario: "mount: wrong fs type, bad option, bad superblock"**
+```bash
+# Debug:
+blkid /dev/sdb1
+file -s /dev/sdb1
+fsck /dev/sdb1
+```
+
+**Scenario: Mount succeeds but `ls` shows I/O error**
+```bash
+# Check for disk failure or corruption
+dmesg | grep -i error
+```
+
+**Advanced Concepts:**
+
+**Lazy Unmounts:**
+```bash
+# Useful when mount point is busy
+umount -l /mnt/myshare
+```
+
+**Remounting:**
+```bash
+# Change mount options without unmounting
+mount -o remount,ro /mnt/myshare
+```
+
+**Mount Namespaces (for containers):**
+```bash
+# List mount namespaces
+lsns -t mnt
+
+# Enter a namespace
+nsenter -t <PID> -m
+```
+
+---
+
+## Essential Concepts & Glossary
+
+### Key Technical Terms
+
+**Autoscaling** – Automatically adjusting the number of running instances based on demand metrics (CPU, request volume, etc.)
+
+**Circuit Breaker** – A resilience pattern that stops requests to a failing service to prevent cascading failures
+
+**Connection Pool** – A cache of reusable database connections to avoid connection establishment overhead
+
+**Core Dump** – A snapshot of a program's memory when it crashes, used for debugging
+
+**Deadlock** – When processes wait on each other's resources indefinitely, preventing progress
+
+**Inode** – Filesystem metadata structure; you can run out of inodes even with disk space available
+
+**JWT (JSON Web Token)** – Stateless authentication token with embedded timestamps
+
+**Load Average** – Number of processes running or waiting; values above CPU core count indicate overload
+
+**Memory Leak** – When a process allocates memory but never releases it
+
+**OOM Killer** – Linux kernel mechanism that forcefully terminates processes when RAM is exhausted
+
+**P95/P99 Latency** – The latency threshold below which 95%/99% of requests fall (tail latency)
+
+**TTL (Time To Live)** – Duration before a cache entry or DNS record expires
+
+**%wa (I/O Wait)** – CPU time spent waiting for disk I/O; high values (≥10%) indicate disk bottlenecks
+
+### Critical Command Reference
+
+```bash
+# Memory & Process Analysis
+free -m                    # Memory usage in MB
+top                        # Real-time process monitor (M=sort by memory, P=CPU)
+ps aux --sort=-%mem        # List processes by memory usage
+dmesg | grep -i oom        # Check for out-of-memory events
+
+# Disk & I/O
+df -h                      # Disk usage (human-readable)
+df -i                      # Inode usage
+du -x -m /path | sort -n   # Find largest directories
+iostat -x 1 5              # I/O statistics
+
+# System Performance
+uptime                    # Load averages
+vmstat 1 5                # Virtual memory statistics
+lsof +D /path             # List open files in directory
+
+# Network & Services
+curl -I http://host/health # Check HTTP health endpoint
+systemctl status service   # Check service status
+journalctl -u service      # View service logs
+```
+
+---
+
+## Conclusion: Building Your Intuition
+
+Operating production systems requires equal parts knowledge, intuition, and systematic thinking.
+The incidents you respond to today build the pattern recognition that will make you faster tomorrow.
+
+These commands are tools, but knowing when to use them comes from experience.
+The key is developing a methodology: start broad, narrow down based on what you find, and always verify your hypotheses.
+
+Keep this guide handy. Bookmark it, print it, adapt it to your environment.
+Most importantly, when you discover a new technique that saves you during an incident, add it to your own collection.
+The best debugging toolkit is the one you build yourself, refined through many late-night incidents and triumphant resolutions.
+
+Stay curious, stay systematic, and may your production systems remain stable.
