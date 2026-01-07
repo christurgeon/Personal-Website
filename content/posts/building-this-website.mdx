@@ -1,0 +1,70 @@
+---
+title: "How I Built This Website with Next.js and MDX"
+date: "2026-01-06"
+excerpt: "A look behind the scenes at the tech stack powering this site, including Next.js, Tailwind CSS, and MDX for blog posts."
+tags: ["nextjs", "react", "webdev"]
+---
+
+I recently rebuilt my personal website from scratch, and I wanted to share some details about the tech stack and decisions I made along the way.
+
+## The Tech Stack
+
+Here's what powers this site:
+
+- **Next.js 16** - React framework with App Router
+- **Tailwind CSS v4** - Utility-first CSS framework
+- **MDX** - Markdown with JSX support for blog posts
+- **TypeScript** - Type safety throughout
+
+## Why These Choices?
+
+### Next.js App Router
+
+The App Router provides an excellent developer experience with:
+
+- File-based routing
+- Server components by default
+- Built-in data fetching patterns
+- Great performance optimizations
+
+### Tailwind CSS
+
+I've been a fan of Tailwind for a while. The new v4 brings:
+
+```css
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+```
+
+Simple imports and even better performance.
+
+### MDX for Blog Posts
+
+MDX lets me write in Markdown while having the power to embed React components when needed. Posts are stored as `.mdx` files with frontmatter for metadata:
+
+```markdown
+---
+title: "My Post Title"
+date: "2026-01-06"
+excerpt: "A brief description"
+tags: ["tag1", "tag2"]
+---
+
+Content goes here...
+```
+
+## Development Setup
+
+I use [mise](https://mise.jdx.dev/) for managing my development environment, which ensures consistent Node.js and pnpm versions across machines.
+
+## What's Next?
+
+I plan to continue improving the site with:
+
+- Dark mode toggle
+- RSS feed
+- Search functionality
+- More content!
+
+Stay tuned for updates, and feel free to check out the source code on GitHub.
+

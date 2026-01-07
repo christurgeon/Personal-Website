@@ -1,0 +1,76 @@
+---
+title: "Getting Started with mise for Development Environments"
+date: "2026-01-05"
+excerpt: "Learn how to use mise to manage your development tools and create reproducible environments for your projects."
+tags: ["devtools", "productivity", "tutorial"]
+---
+
+If you've ever struggled with managing different versions of Node.js, Python, or other tools across projects, [mise](https://mise.jdx.dev/) might be exactly what you need.
+
+## What is mise?
+
+mise (pronounced "meez") is a polyglot tool version manager. Think of it as a single tool that can replace:
+
+- nvm (Node.js)
+- pyenv (Python)
+- rbenv (Ruby)
+- And many more...
+
+## Installation
+
+Getting started is simple:
+
+```bash
+# macOS (Homebrew)
+brew install mise
+
+# Or with curl
+curl https://mise.run | sh
+```
+
+## Project Configuration
+
+Create a `.mise.toml` file in your project root:
+
+```toml
+[tools]
+node = "22"
+pnpm = "9"
+
+[env]
+NODE_ENV = "development"
+```
+
+Then run:
+
+```bash
+mise trust
+mise install
+```
+
+## Key Benefits
+
+### 1. Per-Project Tool Versions
+
+Each project can specify its exact tool requirements. No more global conflicts!
+
+### 2. Automatic Activation
+
+When you `cd` into a project directory, mise automatically activates the correct tool versions.
+
+### 3. Environment Variables
+
+You can also manage environment variables per-project, which is great for development settings.
+
+## Best Practices
+
+1. **Always commit `.mise.toml`** - This ensures all contributors use the same versions
+2. **Document the setup** - Add instructions to your README
+3. **Use exact versions** - For reproducibility, pin to specific versions
+
+## Conclusion
+
+mise has simplified my development workflow significantly. I no longer worry about tool version conflicts, and onboarding new team members is a breeze.
+
+Give it a try on your next project!
+
