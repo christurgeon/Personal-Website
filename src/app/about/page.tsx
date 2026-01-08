@@ -19,19 +19,20 @@ export default function AboutPage() {
 
       <div className="prose prose-lg max-w-none mb-12 animate-fade-in-delay-1">
         <p>
-          Hello! I&apos;m {siteConfig.name}. Welcome to my corner of the internet.
+          Howdy! I&apos;m {siteConfig.name}. Thanks for stopping by.
         </p>
         
         <p>
-          This is where I share my thoughts, ideas, and projects. Feel free to 
+          This is a place where I share my thoughts, ideas, knowledge, and projects. Feel free to 
           explore the <Link href="/blog">blog</Link> or connect with me through 
           the links below.
         </p>
 
         <h2>What I Do</h2>
         <p>
-          Add your professional background, interests, and what drives you here.
-          Share your story and let visitors know what makes you tick.
+          I write about a wide range of topics shaped by curiosity and lived experience.
+          I&apos;ve traveled to 26 countries, many of them solo, including a 3.5‑month journey across South America.
+          By day, I&apos;m a software engineer at Point72, and in my free time I enjoy photography and producing electronic music.
         </p>
 
         <h2>Get in Touch</h2>
