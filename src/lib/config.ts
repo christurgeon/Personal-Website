@@ -9,7 +9,7 @@ export const siteConfig = {
     github: "https://github.com/christurgeon",
     linkedin: "https://www.linkedin.com/in/chris-turgeon-29b42a151",
     goodreads: "https://www.goodreads.com/user/show/132072198-chris-turgeon",
-    soundcloud: "https://soundcloud.com/christurgeon",
+    soundcloud: "https://soundcloud.com/technically-techo",
     email: "hello@christurgeon.com",
   },
   
