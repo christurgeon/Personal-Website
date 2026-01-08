@@ -31,9 +31,9 @@ curl https://mise.run | sh
 After installation, activate mise in your shell. Add this to your `~/.zshrc` or `~/.bashrc`:
 
 ```bash
-eval "$(mise activate zsh)"   # for zsh
+mise trust && eval "$(mise activate zsh)"   # for zsh
 # or
-eval "$(mise activate bash)"  # for bash
+mise trust && eval "$(mise activate bash)"  # for bash
 ```
 
 ### Getting Started
