@@ -17,6 +17,7 @@ export const siteConfig = {
   nav: [
     { name: "Home", href: "/" },
     { name: "Blog", href: "/blog" },
+    { name: "Photography", href: "/photography" },
     { name: "About", href: "/about" },
   ],
 };
