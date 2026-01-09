@@ -21,7 +21,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: PostPageProps): Promise<Metadata> {
   const { slug } = await params;
   const post = getPostBySlug(slug);
-  
+
   if (!post) {
     return {
       title: "Post Not Found",
@@ -50,22 +50,22 @@ export default async function PostPage({ params }: PostPageProps) {
   }
 
   return (
-    <article className="max-w-3xl mx-auto px-6 py-16">
-      <header className="mb-12 animate-fade-in">
+    <article className="mx-auto max-w-3xl px-6 py-16">
+      <header className="animate-fade-in mb-12">
         <Link
           href="/blog"
-          className="inline-flex items-center gap-1 text-sm text-muted hover:text-accent transition-colors mb-8"
+          className="text-muted hover:text-accent mb-8 inline-flex items-center gap-1 text-sm transition-colors"
         >
-          <ArrowRightIcon className="w-4 h-4 rotate-180" />
+          <ArrowRightIcon className="h-4 w-4 rotate-180" />
           Back to Blog
         </Link>
 
         {post.tags && post.tags.length > 0 && (
-          <div className="flex flex-wrap gap-2 mb-4">
+          <div className="mb-4 flex flex-wrap gap-2">
             {post.tags.map((tag) => (
               <span
                 key={tag}
-                className="text-xs font-medium px-2.5 py-1 bg-accent/10 text-accent rounded-full"
+                className="bg-accent/10 text-accent rounded-full px-2.5 py-1 text-xs font-medium"
               >
                 {tag}
               </span>
@@ -73,38 +73,31 @@ export default async function PostPage({ params }: PostPageProps) {
           </div>
         )}
 
-        <h1 className="font-serif text-4xl md:text-5xl font-medium tracking-tight mb-6">
+        <h1 className="mb-6 font-serif text-4xl font-medium tracking-tight md:text-5xl">
           {post.title}
         </h1>
 
-        <div className="flex items-center gap-4 text-muted">
+        <div className="text-muted flex items-center gap-4">
           <span className="flex items-center gap-1.5">
-            <CalendarIcon className="w-4 h-4" />
+            <CalendarIcon className="h-4 w-4" />
             {format(new Date(post.date), "MMMM d, yyyy")}
           </span>
           <span className="flex items-center gap-1.5">
-            <ClockIcon className="w-4 h-4" />
+            <ClockIcon className="h-4 w-4" />
             {post.readingTime}
           </span>
         </div>
       </header>
 
       {post.coverImage && (
-        <div className="relative aspect-[16/9] mb-12 rounded-xl overflow-hidden animate-fade-in-delay-1">
-          <Image
-            src={post.coverImage}
-            alt={post.title}
-            fill
-            className="object-cover"
-            priority
-          />
+        <div className="animate-fade-in-delay-1 relative mb-12 aspect-[16/9] overflow-hidden rounded-xl">
+          <Image src={post.coverImage} alt={post.title} fill className="object-cover" priority />
         </div>
       )}
 
-      <div className="prose prose-lg max-w-none animate-fade-in-delay-2">
+      <div className="prose prose-lg animate-fade-in-delay-2 max-w-none">
         <MDXRemote source={post.content} />
       </div>
     </article>
   );
 }
-

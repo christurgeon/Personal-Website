@@ -10,27 +10,27 @@ export default function Home() {
   return (
     <div className="gradient-bg">
       {/* Hero Section */}
-      <section className="max-w-4xl mx-auto px-6 py-20 md:py-32">
+      <section className="mx-auto max-w-4xl px-6 py-20 md:py-32">
         <div className="animate-fade-in">
-          <p className="text-accent font-medium mb-4">Hello, I&apos;m</p>
-          <h1 className="font-serif text-5xl md:text-7xl font-medium tracking-tight mb-6">
+          <p className="text-accent mb-4 font-medium">Hello, I&apos;m</p>
+          <h1 className="mb-6 font-serif text-5xl font-medium tracking-tight md:text-7xl">
             {siteConfig.name}
           </h1>
         </div>
-        
-        <p className="text-xl md:text-2xl text-muted max-w-2xl mb-8 animate-fade-in-delay-1">
+
+        <p className="text-muted animate-fade-in-delay-1 mb-8 max-w-2xl text-xl md:text-2xl">
           {siteConfig.description}
         </p>
 
-        <div className="flex items-center gap-6 animate-fade-in-delay-2">
+        <div className="animate-fade-in-delay-2 flex items-center gap-6">
           <Link
             href="/blog"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-accent text-white font-medium rounded-lg hover:bg-accent-hover transition-colors"
+            className="bg-accent hover:bg-accent-hover inline-flex items-center gap-2 rounded-lg px-6 py-3 font-medium text-white transition-colors"
           >
             Read the Blog
-            <ArrowRightIcon className="w-4 h-4" />
+            <ArrowRightIcon className="h-4 w-4" />
           </Link>
-          
+
           <div className="flex items-center gap-4">
             {siteConfig.socials.github && (
               <a
@@ -40,7 +40,7 @@ export default function Home() {
                 className="text-muted hover:text-accent transition-colors"
                 aria-label="GitHub"
               >
-                <GitHubIcon className="w-6 h-6" />
+                <GitHubIcon className="h-6 w-6" />
               </a>
             )}
             {siteConfig.socials.linkedin && (
@@ -51,7 +51,7 @@ export default function Home() {
                 className="text-muted hover:text-accent transition-colors"
                 aria-label="LinkedIn"
               >
-                <LinkedInIcon className="w-6 h-6" />
+                <LinkedInIcon className="h-6 w-6" />
               </a>
             )}
           </div>
@@ -60,21 +60,19 @@ export default function Home() {
 
       {/* Recent Posts Section */}
       {posts.length > 0 && (
-        <section className="max-w-4xl mx-auto px-6 pb-20">
-          <div className="flex items-center justify-between mb-8 animate-fade-in-delay-3">
-            <h2 className="font-serif text-3xl font-medium tracking-tight">
-              Recent Posts
-            </h2>
+        <section className="mx-auto max-w-4xl px-6 pb-20">
+          <div className="animate-fade-in-delay-3 mb-8 flex items-center justify-between">
+            <h2 className="font-serif text-3xl font-medium tracking-tight">Recent Posts</h2>
             <Link
               href="/blog"
-              className="flex items-center gap-1 text-accent hover:text-accent-hover transition-colors link-underline"
+              className="text-accent hover:text-accent-hover link-underline flex items-center gap-1 transition-colors"
             >
               View all
-              <ArrowRightIcon className="w-4 h-4" />
+              <ArrowRightIcon className="h-4 w-4" />
             </Link>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-6 animate-fade-in-delay-3">
+          <div className="animate-fade-in-delay-3 grid gap-6 md:grid-cols-2">
             {posts.map((post, index) => (
               <PostCard key={post.slug} post={post} featured={index === 0} />
             ))}
@@ -84,14 +82,10 @@ export default function Home() {
 
       {/* Empty state when no posts */}
       {posts.length === 0 && (
-        <section className="max-w-4xl mx-auto px-6 pb-20 animate-fade-in-delay-3">
-          <div className="text-center py-16 border border-dashed border-border rounded-xl">
-            <h2 className="font-serif text-2xl font-medium mb-3">
-              No posts yet
-            </h2>
-            <p className="text-muted">
-              Check back soon for new content!
-            </p>
+        <section className="animate-fade-in-delay-3 mx-auto max-w-4xl px-6 pb-20">
+          <div className="border-border rounded-xl border border-dashed py-16 text-center">
+            <h2 className="mb-3 font-serif text-2xl font-medium">No posts yet</h2>
+            <p className="text-muted">Check back soon for new content!</p>
           </div>
         </section>
       )}

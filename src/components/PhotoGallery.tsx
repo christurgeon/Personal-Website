@@ -38,7 +38,7 @@ export function PhotoGallery({ photos, showLocation = true }: PhotoGalleryProps)
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (!lightboxOpen) return;
-      
+
       switch (e.key) {
         case "Escape":
           closeLightbox();
@@ -68,12 +68,12 @@ export function PhotoGallery({ photos, showLocation = true }: PhotoGalleryProps)
   return (
     <>
       {/* Masonry-style Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 auto-rows-[280px]">
+      <div className="grid auto-rows-[280px] grid-cols-1 gap-4 md:grid-cols-3">
         {photos.map((photo, index) => (
           <button
             key={photo.id}
             onClick={() => openLightbox(index)}
-            className={`group relative overflow-hidden rounded-xl bg-card border border-border hover:border-accent/50 transition-all duration-300 cursor-zoom-in ${getColumnSpan(photo)}`}
+            className={`group bg-card border-border hover:border-accent/50 relative cursor-zoom-in overflow-hidden rounded-xl border transition-all duration-300 ${getColumnSpan(photo)}`}
             style={{ animationDelay: `${index * 50}ms` }}
           >
             <Image
@@ -86,20 +86,18 @@ export function PhotoGallery({ photos, showLocation = true }: PhotoGalleryProps)
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               onLoad={() => setImageLoaded((prev) => ({ ...prev, [photo.id]: true }))}
             />
-            
+
             {/* Loading skeleton */}
-            {!imageLoaded[photo.id] && (
-              <div className="absolute inset-0 bg-card animate-pulse" />
-            )}
+            {!imageLoaded[photo.id] && <div className="bg-card absolute inset-0 animate-pulse" />}
 
             {/* Hover overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-            
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+
             {/* Photo info on hover */}
             {showLocation && photo.location && (
-              <div className="absolute bottom-0 left-0 right-0 p-4 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+              <div className="absolute right-0 bottom-0 left-0 translate-y-full transform p-4 text-white transition-transform duration-300 group-hover:translate-y-0">
                 <div className="flex items-center gap-2 text-sm">
-                  <MapPinIcon className="w-4 h-4" />
+                  <MapPinIcon className="h-4 w-4" />
                   <span>{photo.location}</span>
                   {photo.date && (
                     <>
@@ -116,17 +114,17 @@ export function PhotoGallery({ photos, showLocation = true }: PhotoGalleryProps)
 
       {/* Lightbox */}
       {lightboxOpen && currentPhoto && (
-        <div 
-          className="fixed inset-0 z-50 bg-black/95 backdrop-blur-sm flex items-center justify-center"
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 backdrop-blur-sm"
           onClick={closeLightbox}
         >
           {/* Close button */}
           <button
             onClick={closeLightbox}
-            className="absolute top-6 right-6 z-10 p-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors"
+            className="absolute top-6 right-6 z-10 rounded-full bg-white/10 p-3 text-white transition-colors hover:bg-white/20"
             aria-label="Close lightbox"
           >
-            <XIcon className="w-6 h-6" />
+            <XIcon className="h-6 w-6" />
           </button>
 
           {/* Navigation buttons */}
@@ -135,26 +133,26 @@ export function PhotoGallery({ photos, showLocation = true }: PhotoGalleryProps)
               e.stopPropagation();
               goToPrevious();
             }}
-            className="absolute left-4 md:left-8 z-10 p-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors"
+            className="absolute left-4 z-10 rounded-full bg-white/10 p-3 text-white transition-colors hover:bg-white/20 md:left-8"
             aria-label="Previous photo"
           >
-            <ChevronLeftIcon className="w-6 h-6" />
+            <ChevronLeftIcon className="h-6 w-6" />
           </button>
-          
+
           <button
             onClick={(e) => {
               e.stopPropagation();
               goToNext();
             }}
-            className="absolute right-4 md:right-8 z-10 p-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors"
+            className="absolute right-4 z-10 rounded-full bg-white/10 p-3 text-white transition-colors hover:bg-white/20 md:right-8"
             aria-label="Next photo"
           >
-            <ChevronRightIcon className="w-6 h-6" />
+            <ChevronRightIcon className="h-6 w-6" />
           </button>
 
           {/* Main image container */}
-          <div 
-            className="relative max-w-[90vw] max-h-[85vh] flex items-center justify-center"
+          <div
+            className="relative flex max-h-[85vh] max-w-[90vw] items-center justify-center"
             onClick={(e) => e.stopPropagation()}
           >
             <Image
@@ -162,23 +160,25 @@ export function PhotoGallery({ photos, showLocation = true }: PhotoGalleryProps)
               alt={currentPhoto.alt}
               width={currentPhoto.width}
               height={currentPhoto.height}
-              className="max-h-[85vh] w-auto h-auto object-contain rounded-lg animate-lightbox-enter"
+              className="animate-lightbox-enter h-auto max-h-[85vh] w-auto rounded-lg object-contain"
               priority
             />
           </div>
 
           {/* Photo info */}
           <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-center text-white">
-            <p className="text-lg font-medium mb-1">{currentPhoto.alt}</p>
+            <p className="mb-1 text-lg font-medium">{currentPhoto.alt}</p>
             <div className="flex items-center justify-center gap-3 text-sm text-white/70">
               {currentPhoto.location && (
                 <span className="flex items-center gap-1">
-                  <MapPinIcon className="w-4 h-4" />
+                  <MapPinIcon className="h-4 w-4" />
                   {currentPhoto.location}
                 </span>
               )}
               {currentPhoto.date && <span>{currentPhoto.date}</span>}
-              <span>{currentIndex + 1} / {photos.length}</span>
+              <span>
+                {currentIndex + 1} / {photos.length}
+              </span>
             </div>
           </div>
         </div>

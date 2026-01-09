@@ -22,51 +22,50 @@ export function Header() {
   };
 
   return (
-    <header className="sticky top-0 z-50 backdrop-blur-md bg-background/80 border-b border-border">
-      <nav className="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
-        <Link 
-          href="/" 
-          className="font-serif text-xl font-medium tracking-tight hover:text-accent transition-colors"
+    <header className="bg-background/80 border-border sticky top-0 z-50 border-b backdrop-blur-md">
+      <nav className="mx-auto flex max-w-4xl items-center justify-between px-6 py-4">
+        <Link
+          href="/"
+          className="hover:text-accent font-serif text-xl font-medium tracking-tight transition-colors"
         >
           {siteConfig.name}
         </Link>
-        
+
         <div className="flex items-center gap-8">
           <ul className="flex items-center gap-8">
             {siteConfig.nav.map((item) => {
-              const isActive = item.href === "/"
-                ? pathname === "/"
-                : pathname.startsWith(item.href);
+              const isActive =
+                item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
               return (
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className={`text-sm transition-colors link-underline ${
-                      isActive
-                        ? "text-accent"
-                        : "text-muted hover:text-foreground"
+                    className={`link-underline text-sm transition-colors ${
+                      isActive ? "text-accent" : "text-muted hover:text-foreground"
                     }`}
                   >
                     {item.name}
                   </Link>
                 </li>
               );
-            ))}
+            })}
           </ul>
-          
+
           <button
             onClick={toggleTheme}
-            className="p-2 rounded-lg text-muted hover:text-foreground hover:bg-card transition-colors"
-            aria-label={mounted && resolvedTheme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+            className="text-muted hover:text-foreground hover:bg-card rounded-lg p-2 transition-colors"
+            aria-label={
+              mounted && resolvedTheme === "dark" ? "Switch to light mode" : "Switch to dark mode"
+            }
           >
             {mounted ? (
               resolvedTheme === "dark" ? (
-                <SunIcon className="w-5 h-5" />
+                <SunIcon className="h-5 w-5" />
               ) : (
-                <MoonIcon className="w-5 h-5" />
+                <MoonIcon className="h-5 w-5" />
               )
             ) : (
-              <div className="w-5 h-5" />
+              <div className="h-5 w-5" />
             )}
           </button>
         </div>
@@ -74,4 +73,3 @@ export function Header() {
     </header>
   );
 }
-

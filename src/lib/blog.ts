@@ -60,4 +60,3 @@ export function getAllPosts(): PostMeta[] {
 
   return posts;
 }
-

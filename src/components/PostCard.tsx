@@ -12,7 +12,7 @@ interface PostCardProps {
 export function PostCard({ post, featured = false }: PostCardProps) {
   return (
     <article
-      className={`group relative bg-card border border-border rounded-xl overflow-hidden transition-all duration-300 hover:border-accent/30 hover:shadow-lg hover:shadow-accent/5 ${
+      className={`group bg-card border-border hover:border-accent/30 hover:shadow-accent/5 relative overflow-hidden rounded-xl border transition-all duration-300 hover:shadow-lg ${
         featured ? "md:col-span-2" : ""
       }`}
     >
@@ -24,17 +24,17 @@ export function PostCard({ post, featured = false }: PostCardProps) {
             fill
             className="object-cover transition-transform duration-500 group-hover:scale-105"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-card/80 to-transparent" />
+          <div className="from-card/80 absolute inset-0 bg-gradient-to-t to-transparent" />
         </div>
       )}
 
-      <div className={`p-6 ${post.coverImage ? "-mt-12 relative" : ""}`}>
+      <div className={`p-6 ${post.coverImage ? "relative -mt-12" : ""}`}>
         {post.tags && post.tags.length > 0 && (
-          <div className="flex flex-wrap gap-2 mb-3">
+          <div className="mb-3 flex flex-wrap gap-2">
             {post.tags.slice(0, 3).map((tag) => (
               <span
                 key={tag}
-                className="text-xs font-medium px-2.5 py-1 bg-accent/10 text-accent rounded-full"
+                className="bg-accent/10 text-accent rounded-full px-2.5 py-1 text-xs font-medium"
               >
                 {tag}
               </span>
@@ -44,7 +44,7 @@ export function PostCard({ post, featured = false }: PostCardProps) {
 
         <Link href={`/blog/${post.slug}`}>
           <h3
-            className={`font-serif font-medium tracking-tight mb-3 group-hover:text-accent transition-colors ${
+            className={`group-hover:text-accent mb-3 font-serif font-medium tracking-tight transition-colors ${
               featured ? "text-2xl md:text-3xl" : "text-xl"
             }`}
           >
@@ -55,27 +55,26 @@ export function PostCard({ post, featured = false }: PostCardProps) {
         <p className="text-muted mb-4 line-clamp-2">{post.excerpt}</p>
 
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-4 text-sm text-muted">
+          <div className="text-muted flex items-center gap-4 text-sm">
             <span className="flex items-center gap-1.5">
-              <CalendarIcon className="w-4 h-4" />
+              <CalendarIcon className="h-4 w-4" />
               {format(new Date(post.date), "MMM d, yyyy")}
             </span>
             <span className="flex items-center gap-1.5">
-              <ClockIcon className="w-4 h-4" />
+              <ClockIcon className="h-4 w-4" />
               {post.readingTime}
             </span>
           </div>
 
           <Link
             href={`/blog/${post.slug}`}
-            className="flex items-center gap-1 text-sm font-medium text-accent hover:text-accent-hover transition-colors"
+            className="text-accent hover:text-accent-hover flex items-center gap-1 text-sm font-medium transition-colors"
           >
             Read
-            <ArrowRightIcon className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+            <ArrowRightIcon className="h-4 w-4 transition-transform group-hover:translate-x-1" />
           </Link>
         </div>
       </div>
     </article>
   );
 }
-

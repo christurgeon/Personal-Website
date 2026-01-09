@@ -1,9 +1,10 @@
 export const siteConfig = {
   name: "Chris Turgeon",
   title: "Personal Website",
-  description: "Howdy! You've landed on my corner of the internet. I write about technology, design, and life.",
+  description:
+    "Howdy! You've landed on my corner of the internet. I write about technology, design, and life.",
   url: "https://christurgeon.com",
-  
+
   // Social links
   socials: {
     github: "https://github.com/christurgeon",
@@ -12,7 +13,7 @@ export const siteConfig = {
     soundcloud: "https://soundcloud.com/technically-techo",
     email: "turgechr@duck.com",
   },
-  
+
   // Navigation links
   nav: [
     { name: "Home", href: "/" },
@@ -21,4 +22,3 @@ export const siteConfig = {
     { name: "About", href: "/about" },
   ],
 };
-

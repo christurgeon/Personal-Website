@@ -45,7 +45,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${serif.variable} ${sans.variable}`} suppressHydrationWarning>
-      <body className="min-h-screen flex flex-col antialiased">
+      <body className="flex min-h-screen flex-col antialiased">
         <ThemeProvider>
           <Header />
           <main className="flex-1">{children}</main>
