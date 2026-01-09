@@ -33,19 +33,24 @@ export function Header() {
         
         <div className="flex items-center gap-8">
           <ul className="flex items-center gap-8">
-            {siteConfig.nav.map((item) => (
-              <li key={item.href}>
-                <Link
-                  href={item.href}
-                  className={`text-sm transition-colors link-underline ${
-                    pathname === item.href
-                      ? "text-accent"
-                      : "text-muted hover:text-foreground"
-                  }`}
-                >
-                  {item.name}
-                </Link>
-              </li>
+            {siteConfig.nav.map((item) => {
+              const isActive = item.href === "/"
+                ? pathname === "/"
+                : pathname.startsWith(item.href);
+              return (
+                <li key={item.href}>
+                  <Link
+                    href={item.href}
+                    className={`text-sm transition-colors link-underline ${
+                      isActive
+                        ? "text-accent"
+                        : "text-muted hover:text-foreground"
+                    }`}
+                  >
+                    {item.name}
+                  </Link>
+                </li>
+              );
             ))}
           </ul>
           

@@ -87,23 +87,6 @@ When you enter the project directory, mise automatically activates these tool ve
 
 ---
 
-## Project Structure
-
-```
-├── content/
-│   └── posts/           # Blog posts (MDX files)
-├── public/
-│   └── images/          # Static images
-├── src/
-│   ├── app/             # Next.js App Router pages
-│   │   ├── blog/        # Blog pages
-│   │   └── about/       # About page
-│   ├── components/      # React components
-│   └── lib/             # Utility functions
-├── .mise.toml           # mise configuration
-└── package.json
-```
-
 ## Configuration
 
 ### Site Configuration

@@ -172,3 +172,66 @@ html {
   animation: fadeIn 0.5s ease-out 0.3s forwards;
   opacity: 0;
 }
+
+/* Lightbox animation */
+@keyframes lightboxEnter {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-lightbox-enter {
+  animation: lightboxEnter 0.3s ease-out forwards;
+}
+
+/* Gallery card staggered animations */
+@keyframes galleryCardEnter {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-gallery-card {
+  animation: galleryCardEnter 0.5s ease-out forwards;
+  opacity: 0;
+}
+
+/* Image zoom on hover */
+.gallery-image-zoom {
+  transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.gallery-image-zoom:hover {
+  transform: scale(1.05);
+}
+
+/* Smooth shimmer loading effect */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.animate-shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--card) 25%,
+    var(--card-hover) 50%,
+    var(--card) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+}
