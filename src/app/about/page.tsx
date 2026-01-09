@@ -34,8 +34,11 @@ export default function AboutPage() {
         <p>
           I write about a wide range of topics shaped by curiosity and lived experience. I&apos;ve
           traveled to 26 countries, many of them solo, including a 3.5‑month journey across South
-          America. By day, I&apos;m a software engineer at Point72, and in my free time I enjoy
-          photography and producing electronic music.
+          America. By day, I&apos;m a software engineer at{" "}
+          <Link href="https://point72.com/" target="_blank" rel="noopener noreferrer">
+            Point72
+          </Link>
+          , and in my free time I enjoy photography and producing electronic music.
         </p>
 
         <h2>Get in Touch</h2>
