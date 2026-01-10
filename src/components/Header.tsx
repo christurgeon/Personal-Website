@@ -24,25 +24,19 @@ export function Header() {
   return (
     <header className="bg-background/80 border-border sticky top-0 z-50 border-b backdrop-blur-md">
       <nav className="mx-auto flex max-w-4xl items-center justify-between px-6 py-4">
-        <Link
-          href="/"
-          className="hover:text-accent font-serif text-xl font-medium tracking-tight transition-colors"
-        >
+        <Link href="/" className="hover:text-accent font-serif text-xl font-medium tracking-tight transition-colors">
           {siteConfig.name}
         </Link>
 
         <div className="flex items-center gap-8">
           <ul className="flex items-center gap-8">
             {siteConfig.nav.map((item) => {
-              const isActive =
-                item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
+              const isActive = item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
               return (
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className={`link-underline text-sm transition-colors ${
-                      isActive ? "text-accent" : "text-muted hover:text-foreground"
-                    }`}
+                    className={`link-underline text-sm transition-colors ${isActive ? "text-accent" : "text-muted hover:text-foreground"}`}
                   >
                     {item.name}
                   </Link>
@@ -54,19 +48,9 @@ export function Header() {
           <button
             onClick={toggleTheme}
             className="text-muted hover:text-foreground hover:bg-card rounded-lg p-2 transition-colors"
-            aria-label={
-              mounted && resolvedTheme === "dark" ? "Switch to light mode" : "Switch to dark mode"
-            }
+            aria-label={mounted && resolvedTheme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
           >
-            {mounted ? (
-              resolvedTheme === "dark" ? (
-                <SunIcon className="h-5 w-5" />
-              ) : (
-                <MoonIcon className="h-5 w-5" />
-              )
-            ) : (
-              <div className="h-5 w-5" />
-            )}
+            {mounted ? resolvedTheme === "dark" ? <SunIcon className="h-5 w-5" /> : <MoonIcon className="h-5 w-5" /> : <div className="h-5 w-5" />}
           </button>
         </div>
       </nav>

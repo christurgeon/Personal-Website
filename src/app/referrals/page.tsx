@@ -21,20 +21,26 @@ interface Category {
 
 const categories: Category[] = [
   {
-    name: "Finance",
-    description: "Credit cards, banks, and investing apps I use",
+    name: "Credit Cards",
+    description: "My go-to credit cards for maximizing rewards, travel perks, and cash back.",
     referrals: [
       {
         name: "Capital One Venture X",
         description: "My go-to travel rewards credit card with great points flexibility",
-        bonus: "Earn XXX bonus points after XXX spend in 3 months",
-        href: "https://example.com/capital-one",
+        bonus: "Earn 100,000 bonus miles after spending $10,000 on purchases in the first 6 months",
+        href: "https://i.capitalone.com/JrMpDJrTQ",
       },
       {
-        name: "Robinhood",
-        description: "Blah blah blah",
-        bonus: "Blah blah blah",
-        href: "https://example.com/capital-one",
+        name: "REI Co-Op Mastercard",
+        description: "Outdoor rewards card - 5% back at REI, 1.5% back everywhere else, no annual fee",
+        bonus: "Earn a $100 REI gift card after your first purchase outside of REI within 60 days of account opening",
+        href: "https://i.capitalone.com/JjtDtWZgs",
+      },
+      {
+        name: "Chase Freedom Flex",
+        description: "No-annual-fee cash back card with rotating 5% bonus categories and solid everyday rewards",
+        bonus: "Earn $200 or $300 cash back after spending $500 on purchases in the first 3 months",
+        href: "https://www.referyourchasecard.com/18d/CSJO5XQRI3",
       },
     ],
   },
@@ -57,21 +63,13 @@ export default function ReferralsPage() {
     <div className="mx-auto max-w-3xl px-6 py-16">
       {/* Header */}
       <header className="animate-fade-in mb-12">
-        <h1 className="mb-4 font-serif text-4xl font-medium tracking-tight md:text-5xl">
-          Referrals
-        </h1>
-        <p className="text-muted text-lg">
-          Services and products I personally use and recommend. Use these links and we both benefit.
-        </p>
+        <h1 className="mb-4 font-serif text-4xl font-medium tracking-tight md:text-5xl">Referrals</h1>
+        <p className="text-muted text-lg">Services and products I personally use and recommend.</p>
       </header>
       {/* Categories */}
       <div className="space-y-12">
         {categories.map((category, categoryIndex) => (
-          <section
-            key={category.name}
-            className="animate-fade-in"
-            style={{ animationDelay: `${(categoryIndex + 1) * 100}ms`, opacity: 0 }}
-          >
+          <section key={category.name} className="animate-fade-in" style={{ animationDelay: `${(categoryIndex + 1) * 100}ms`, opacity: 0 }}>
             {/* Category Header */}
             <div className="mb-6">
               <h2 className="font-serif text-2xl font-medium tracking-tight">{category.name}</h2>
@@ -93,13 +91,9 @@ export default function ReferralsPage() {
                 >
                   <div className="flex items-start justify-between gap-4">
                     <div className="flex-1">
-                      <h3 className="group-hover:text-accent font-medium transition-colors">
-                        {referral.name}
-                      </h3>
+                      <h3 className="group-hover:text-accent font-medium transition-colors">{referral.name}</h3>
                       <p className="text-muted mt-1 text-sm">{referral.description}</p>
-                      {referral.bonus && (
-                        <p className="text-accent mt-2 text-sm font-medium">🎁 {referral.bonus}</p>
-                      )}
+                      {referral.bonus && <p className="text-accent mt-2 text-sm font-medium">🎁 {referral.bonus}</p>}
                     </div>
                     <svg
                       className="text-muted group-hover:text-accent mt-1 h-4 w-4 flex-shrink-0 transition-all group-hover:translate-x-1"

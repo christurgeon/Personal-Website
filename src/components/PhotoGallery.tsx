@@ -80,9 +80,7 @@ export function PhotoGallery({ photos, showLocation = true }: PhotoGalleryProps)
               src={photo.src}
               alt={photo.alt}
               fill
-              className={`object-cover transition-all duration-500 group-hover:scale-105 ${
-                imageLoaded[photo.id] ? "opacity-100" : "opacity-0"
-              }`}
+              className={`object-cover transition-all duration-500 group-hover:scale-105 ${imageLoaded[photo.id] ? "opacity-100" : "opacity-0"}`}
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               onLoad={() => setImageLoaded((prev) => ({ ...prev, [photo.id]: true }))}
             />
@@ -114,10 +112,7 @@ export function PhotoGallery({ photos, showLocation = true }: PhotoGalleryProps)
 
       {/* Lightbox */}
       {lightboxOpen && currentPhoto && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 backdrop-blur-sm"
-          onClick={closeLightbox}
-        >
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 backdrop-blur-sm" onClick={closeLightbox}>
           {/* Close button */}
           <button
             onClick={closeLightbox}
@@ -151,10 +146,7 @@ export function PhotoGallery({ photos, showLocation = true }: PhotoGalleryProps)
           </button>
 
           {/* Main image container */}
-          <div
-            className="relative flex max-h-[85vh] max-w-[90vw] items-center justify-center"
-            onClick={(e) => e.stopPropagation()}
-          >
+          <div className="relative flex max-h-[85vh] max-w-[90vw] items-center justify-center" onClick={(e) => e.stopPropagation()}>
             <Image
               src={currentPhoto.src}
               alt={currentPhoto.alt}

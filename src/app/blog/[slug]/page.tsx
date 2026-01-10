@@ -52,10 +52,7 @@ export default async function PostPage({ params }: PostPageProps) {
   return (
     <article className="mx-auto max-w-3xl px-6 py-16">
       <header className="animate-fade-in mb-12">
-        <Link
-          href="/blog"
-          className="text-muted hover:text-accent mb-8 inline-flex items-center gap-1 text-sm transition-colors"
-        >
+        <Link href="/blog" className="text-muted hover:text-accent mb-8 inline-flex items-center gap-1 text-sm transition-colors">
           <ArrowRightIcon className="h-4 w-4 rotate-180" />
           Back to Blog
         </Link>
@@ -63,19 +60,14 @@ export default async function PostPage({ params }: PostPageProps) {
         {post.tags && post.tags.length > 0 && (
           <div className="mb-4 flex flex-wrap gap-2">
             {post.tags.map((tag) => (
-              <span
-                key={tag}
-                className="bg-accent/10 text-accent rounded-full px-2.5 py-1 text-xs font-medium"
-              >
+              <span key={tag} className="bg-accent/10 text-accent rounded-full px-2.5 py-1 text-xs font-medium">
                 {tag}
               </span>
             ))}
           </div>
         )}
 
-        <h1 className="mb-6 font-serif text-4xl font-medium tracking-tight md:text-5xl">
-          {post.title}
-        </h1>
+        <h1 className="mb-6 font-serif text-4xl font-medium tracking-tight md:text-5xl">{post.title}</h1>
 
         <div className="text-muted flex items-center gap-4">
           <span className="flex items-center gap-1.5">

@@ -43,8 +43,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
   const allCategories = getAllCategories();
   const currentIndex = allCategories.findIndex((c) => c.slug === categorySlug);
   const nextCategory = allCategories[(currentIndex + 1) % allCategories.length];
-  const prevCategory =
-    allCategories[(currentIndex - 1 + allCategories.length) % allCategories.length];
+  const prevCategory = allCategories[(currentIndex - 1 + allCategories.length) % allCategories.length];
 
   return (
     <div className="min-h-screen">
@@ -53,10 +52,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
         <div className="from-accent/5 absolute inset-0 bg-gradient-to-b via-transparent to-transparent" />
         <div className="relative mx-auto max-w-6xl px-6 py-12 md:py-16">
           {/* Back Link */}
-          <Link
-            href="/photography"
-            className="text-muted hover:text-accent group mb-8 inline-flex items-center gap-2 transition-colors"
-          >
+          <Link href="/photography" className="text-muted hover:text-accent group mb-8 inline-flex items-center gap-2 transition-colors">
             <ChevronLeftIcon className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
             <span>All Collections</span>
           </Link>
@@ -69,9 +65,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
               <span>{category.photos.length} photographs</span>
             </div>
 
-            <h1 className="mb-4 font-serif text-4xl font-medium tracking-tight md:text-5xl lg:text-6xl">
-              {category.name}
-            </h1>
+            <h1 className="mb-4 font-serif text-4xl font-medium tracking-tight md:text-5xl lg:text-6xl">{category.name}</h1>
 
             <p className="text-muted max-w-2xl text-xl">{category.description}</p>
           </div>
@@ -104,9 +98,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                 <ChevronLeftIcon className="h-4 w-4" />
                 <span>Previous</span>
               </div>
-              <h3 className="group-hover:text-accent font-serif text-xl font-medium transition-colors">
-                {prevCategory.name}
-              </h3>
+              <h3 className="group-hover:text-accent font-serif text-xl font-medium transition-colors">{prevCategory.name}</h3>
               <p className="text-muted mt-1 text-sm">{prevCategory.country}</p>
             </Link>
 
@@ -119,9 +111,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                 <span>Next</span>
                 <ChevronLeftIcon className="h-4 w-4 rotate-180" />
               </div>
-              <h3 className="group-hover:text-accent font-serif text-xl font-medium transition-colors">
-                {nextCategory.name}
-              </h3>
+              <h3 className="group-hover:text-accent font-serif text-xl font-medium transition-colors">{nextCategory.name}</h3>
               <p className="text-muted mt-1 text-sm">{nextCategory.country}</p>
             </Link>
           </div>

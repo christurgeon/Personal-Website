@@ -41,10 +41,7 @@ export default function ShufflePage() {
         <div className="from-accent/5 absolute inset-0 bg-gradient-to-b via-transparent to-transparent" />
         <div className="relative mx-auto max-w-6xl px-6 py-12 md:py-16">
           {/* Back link */}
-          <Link
-            href="/photography"
-            className="text-muted hover:text-accent group mb-8 inline-flex items-center gap-2 transition-colors"
-          >
+          <Link href="/photography" className="text-muted hover:text-accent group mb-8 inline-flex items-center gap-2 transition-colors">
             <ChevronLeftIcon className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
             <span>All Collections</span>
           </Link>
@@ -56,13 +53,10 @@ export default function ShufflePage() {
                 <span className="font-medium tracking-wide uppercase">Random Selection</span>
               </div>
 
-              <h1 className="mb-4 font-serif text-4xl font-medium tracking-tight md:text-5xl lg:text-6xl">
-                Shuffled Gallery
-              </h1>
+              <h1 className="mb-4 font-serif text-4xl font-medium tracking-tight md:text-5xl lg:text-6xl">Shuffled Gallery</h1>
 
               <p className="text-muted max-w-2xl text-xl">
-                A random selection of {photos.length} photographs from all collections. Click
-                shuffle to see a new arrangement.
+                A random selection of {photos.length} photographs from all collections. Click shuffle to see a new arrangement.
               </p>
             </div>
 
@@ -83,9 +77,7 @@ export default function ShufflePage() {
       {/* Photo Gallery */}
       <section className="mx-auto max-w-6xl px-6 py-12">
         {photos.length > 0 ? (
-          <div
-            className={`transition-opacity duration-300 ${isShuffling ? "opacity-50" : "opacity-100"}`}
-          >
+          <div className={`transition-opacity duration-300 ${isShuffling ? "opacity-50" : "opacity-100"}`}>
             <PhotoGallery photos={photos} showLocation />
           </div>
         ) : (

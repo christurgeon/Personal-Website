@@ -1,8 +1,7 @@
 export const siteConfig = {
   name: "Chris Turgeon",
   title: "Personal Website",
-  description:
-    "Howdy! You've landed on my corner of the internet. I write about technology, design, and life.",
+  description: "Howdy! You've landed on my corner of the internet. I write about technology, design, and life.",
   url: "https://christurgeon.com",
 
   // Social links

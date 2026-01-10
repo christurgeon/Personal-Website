@@ -13,14 +13,10 @@ export default function Home() {
       <section className="mx-auto max-w-4xl px-6 py-20 md:py-32">
         <div className="animate-fade-in">
           <p className="text-accent mb-4 font-medium">Hello, I&apos;m</p>
-          <h1 className="mb-6 font-serif text-5xl font-medium tracking-tight md:text-7xl">
-            {siteConfig.name}
-          </h1>
+          <h1 className="mb-6 font-serif text-5xl font-medium tracking-tight md:text-7xl">{siteConfig.name}</h1>
         </div>
 
-        <p className="text-muted animate-fade-in-delay-1 mb-8 max-w-2xl text-xl md:text-2xl">
-          {siteConfig.description}
-        </p>
+        <p className="text-muted animate-fade-in-delay-1 mb-8 max-w-2xl text-xl md:text-2xl">{siteConfig.description}</p>
 
         <div className="animate-fade-in-delay-2 flex items-center gap-6">
           <Link
@@ -63,10 +59,7 @@ export default function Home() {
         <section className="mx-auto max-w-4xl px-6 pb-20">
           <div className="animate-fade-in-delay-3 mb-8 flex items-center justify-between">
             <h2 className="font-serif text-3xl font-medium tracking-tight">Recent Posts</h2>
-            <Link
-              href="/blog"
-              className="text-accent hover:text-accent-hover link-underline flex items-center gap-1 transition-colors"
-            >
+            <Link href="/blog" className="text-accent hover:text-accent-hover link-underline flex items-center gap-1 transition-colors">
               View all
               <ArrowRightIcon className="h-4 w-4" />
             </Link>

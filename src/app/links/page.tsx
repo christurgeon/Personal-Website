@@ -1,13 +1,6 @@
 import Image from "next/image";
 import { siteConfig } from "@/lib/config";
-import {
-  GitHubIcon,
-  LinkedInIcon,
-  GoodreadsIcon,
-  SoundCloudIcon,
-  EmailIcon,
-  ArrowRightIcon,
-} from "@/components/Icons";
+import { GitHubIcon, LinkedInIcon, GoodreadsIcon, SoundCloudIcon, EmailIcon, ArrowRightIcon } from "@/components/Icons";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -79,13 +72,7 @@ export default function LinksPage() {
         {/* Profile Section */}
         <div className="animate-fade-in mb-8 text-center">
           <div className="border-accent/30 relative mx-auto mb-4 h-24 w-24 overflow-hidden rounded-full border-2 shadow-lg">
-            <Image
-              src="/images/profile.jpg"
-              alt={siteConfig.name}
-              fill
-              className="object-cover"
-              priority
-            />
+            <Image src="/images/profile.jpg" alt={siteConfig.name} fill className="object-cover" priority />
           </div>
 
           <h1 className="mb-1 font-serif text-2xl font-medium tracking-tight">{siteConfig.name}</h1>
@@ -109,12 +96,8 @@ export default function LinksPage() {
                 </span>
               )}
               <div className="flex-1">
-                <span className="group-hover:text-accent font-medium transition-colors">
-                  {link.name}
-                </span>
-                {link.description && (
-                  <p className="text-muted mt-0.5 text-sm">{link.description}</p>
-                )}
+                <span className="group-hover:text-accent font-medium transition-colors">{link.name}</span>
+                {link.description && <p className="text-muted mt-0.5 text-sm">{link.description}</p>}
               </div>
               <ArrowRightIcon className="text-muted group-hover:text-accent h-4 w-4 transition-all group-hover:translate-x-1" />
             </a>
@@ -122,10 +105,7 @@ export default function LinksPage() {
         </div>
 
         {/* Footer */}
-        <p
-          className="text-muted animate-fade-in mt-12 text-center text-xs"
-          style={{ animationDelay: `${(links.length + 1) * 80}ms`, opacity: 0 }}
-        >
+        <p className="text-muted animate-fade-in mt-12 text-center text-xs" style={{ animationDelay: `${(links.length + 1) * 80}ms`, opacity: 0 }}>
           © {new Date().getFullYear()} {siteConfig.name}
         </p>
       </div>

@@ -1,13 +1,6 @@
 import Link from "next/link";
 import { siteConfig } from "@/lib/config";
-import {
-  GitHubIcon,
-  LinkedInIcon,
-  GoodreadsIcon,
-  SoundCloudIcon,
-  EmailIcon,
-  ArrowRightIcon,
-} from "@/components/Icons";
+import { GitHubIcon, LinkedInIcon, GoodreadsIcon, SoundCloudIcon, EmailIcon, ArrowRightIcon } from "@/components/Icons";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -26,15 +19,14 @@ export default function AboutPage() {
         <p>Howdy! I&apos;m {siteConfig.name}. Thanks for stopping by.</p>
 
         <p>
-          This is a place where I share my thoughts, ideas, knowledge, and projects. Feel free to
-          explore the <Link href="/blog">blog</Link> or connect with me through the links below.
+          This is a place where I share my thoughts, ideas, knowledge, and projects. Feel free to explore the <Link href="/blog">blog</Link> or
+          connect with me through the links below.
         </p>
 
         <h2>What I Do</h2>
         <p>
-          I write about a wide range of topics shaped by curiosity and lived experience. I&apos;ve
-          traveled to 26 countries, many of them solo, including a 3.5‑month journey across South
-          America. By day, I&apos;m a software engineer at{" "}
+          I write about a wide range of topics shaped by curiosity and lived experience. I&apos;ve traveled to 26 countries, many of them solo,
+          including a 3.5‑month journey across South America. By day, I&apos;m a software engineer at{" "}
           <Link href="https://point72.com/" target="_blank" rel="noopener noreferrer">
             Point72
           </Link>
@@ -43,8 +35,8 @@ export default function AboutPage() {
 
         <h2>Get in Touch</h2>
         <p>
-          I&apos;m always interested in hearing from new people. Whether you have a question, want
-          to collaborate, or just want to say hi, feel free to reach out.
+          I&apos;m always interested in hearing from new people. Whether you have a question, want to collaborate, or just want to say hi, feel free
+          to reach out.
         </p>
       </div>
 
@@ -106,13 +98,8 @@ export default function AboutPage() {
 
       <div className="bg-card border-border animate-fade-in-delay-3 mt-16 rounded-xl border p-8">
         <h3 className="mb-3 font-serif text-2xl font-medium">Want to read my thoughts?</h3>
-        <p className="text-muted mb-4">
-          Check out my blog for articles on technology, design, and more.
-        </p>
-        <Link
-          href="/blog"
-          className="text-accent hover:text-accent-hover inline-flex items-center gap-2 transition-colors"
-        >
+        <p className="text-muted mb-4">Check out my blog for articles on technology, design, and more.</p>
+        <Link href="/blog" className="text-accent hover:text-accent-hover inline-flex items-center gap-2 transition-colors">
           View the Blog
           <ArrowRightIcon className="h-4 w-4" />
         </Link>

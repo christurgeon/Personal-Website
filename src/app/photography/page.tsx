@@ -24,9 +24,7 @@ export default function PhotographyPage() {
               <CameraIcon className="h-5 w-5" />
               <span className="text-sm font-medium tracking-wide uppercase">Photography</span>
             </div>
-            <h1 className="mb-6 font-serif text-5xl font-medium tracking-tight md:text-6xl lg:text-7xl">
-              Through the Lens
-            </h1>
+            <h1 className="mb-6 font-serif text-5xl font-medium tracking-tight md:text-6xl lg:text-7xl">Through the Lens</h1>
           </div>
           <p className="text-muted animate-fade-in-delay-1 mb-8 max-w-2xl text-xl md:text-2xl">
             Moments captured from journeys across {categories.length} destinations.
@@ -77,12 +75,8 @@ export default function PhotographyPage() {
                     <span className="mx-2">•</span>
                     <span>{category.photos.length} photos</span>
                   </div>
-                  <h2 className="mb-2 font-serif text-3xl font-medium md:text-4xl">
-                    {category.name}
-                  </h2>
-                  <p className="line-clamp-2 text-sm text-white/80 md:text-base">
-                    {category.description}
-                  </p>
+                  <h2 className="mb-2 font-serif text-3xl font-medium md:text-4xl">{category.name}</h2>
+                  <p className="line-clamp-2 text-sm text-white/80 md:text-base">{category.description}</p>
                 </div>
 
                 {/* Arrow indicator */}

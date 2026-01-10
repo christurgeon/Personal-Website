@@ -18,12 +18,7 @@ export function PostCard({ post, featured = false }: PostCardProps) {
     >
       {post.coverImage && (
         <div className="relative aspect-[16/9] overflow-hidden">
-          <Image
-            src={post.coverImage}
-            alt={post.title}
-            fill
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
-          />
+          <Image src={post.coverImage} alt={post.title} fill className="object-cover transition-transform duration-500 group-hover:scale-105" />
           <div className="from-card/80 absolute inset-0 bg-gradient-to-t to-transparent" />
         </div>
       )}
@@ -32,10 +27,7 @@ export function PostCard({ post, featured = false }: PostCardProps) {
         {post.tags && post.tags.length > 0 && (
           <div className="mb-3 flex flex-wrap gap-2">
             {post.tags.slice(0, 3).map((tag) => (
-              <span
-                key={tag}
-                className="bg-accent/10 text-accent rounded-full px-2.5 py-1 text-xs font-medium"
-              >
+              <span key={tag} className="bg-accent/10 text-accent rounded-full px-2.5 py-1 text-xs font-medium">
                 {tag}
               </span>
             ))}

@@ -54,11 +54,7 @@ export function Footer() {
               </a>
             )}
             {siteConfig.socials.email && (
-              <a
-                href={`mailto:${siteConfig.socials.email}`}
-                className="text-muted hover:text-accent transition-colors"
-                aria-label="Email"
-              >
+              <a href={`mailto:${siteConfig.socials.email}`} className="text-muted hover:text-accent transition-colors" aria-label="Email">
                 <EmailIcon className="h-5 w-5" />
               </a>
             )}
