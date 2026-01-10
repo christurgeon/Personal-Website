@@ -85,15 +85,6 @@ export default function AboutPage() {
             SoundCloud
           </a>
         )}
-        {siteConfig.socials.email && (
-          <a
-            href={`mailto:${siteConfig.socials.email}`}
-            className="border-border hover:border-accent hover:text-accent inline-flex items-center gap-2 rounded-lg border px-4 py-2 transition-colors"
-          >
-            <EmailIcon className="h-5 w-5" />
-            Email
-          </a>
-        )}
       </div>
 
       <div className="bg-card border-border animate-fade-in-delay-3 mt-16 rounded-xl border p-8">
