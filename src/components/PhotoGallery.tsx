@@ -159,7 +159,6 @@ export function PhotoGallery({ photos, showLocation = true }: PhotoGalleryProps)
 
           {/* Photo info */}
           <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-center text-white">
-            <p className="mb-1 text-lg font-medium">{currentPhoto.alt}</p>
             <div className="flex items-center justify-center gap-3 text-sm text-white/70">
               {currentPhoto.location && (
                 <span className="flex items-center gap-1">
