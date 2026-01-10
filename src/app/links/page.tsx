@@ -41,6 +41,12 @@ const links = [
     external: false,
   },
   {
+    name: "Referrals",
+    href: "/referrals",
+    description: "Services I use and recommend",
+    external: false,
+  },
+  {
     name: "LinkedIn",
     href: siteConfig.socials.linkedin,
     icon: LinkedInIcon,
