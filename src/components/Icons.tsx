@@ -94,6 +94,14 @@ export function SoundCloudIcon({ className }: IconProps) {
   );
 }
 
+export function BeliIcon({ className }: IconProps) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M6 4h7.2c2.4 0 4.1 1.3 4.1 3.4 0 1.5-.8 2.6-2 3.1 1.6.4 2.7 1.7 2.7 3.5 0 2.4-1.9 4-4.7 4H6V4zm6.8 5.2c1.2 0 1.9-.5 1.9-1.5s-.7-1.5-1.9-1.5H9v3h3.8zm.3 6.6c1.4 0 2.2-.6 2.2-1.7s-.8-1.7-2.2-1.7H9v3.4h4.1z" />
+    </svg>
+  );
+}
+
 export function CameraIcon({ className }: IconProps) {
   return (
     <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">

@@ -11,6 +11,7 @@ export const siteConfig = {
     goodreads: "https://www.goodreads.com/user/show/132072198-chris-turgeon",
     soundcloud: "https://soundcloud.com/technically-techo",
     email: "turgechr@duck.com",
+    beli: "https://beliapp.co/app/christurgeon",
   },
 
   // Navigation links

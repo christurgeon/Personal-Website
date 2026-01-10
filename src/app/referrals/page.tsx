@@ -22,7 +22,7 @@ interface Category {
 const categories: Category[] = [
   {
     name: "Credit Cards",
-    description: "My go-to credit cards for maximizing rewards, travel perks, and cash back.",
+    description: "My go-to credit cards for maximizing rewards, travel perks, and cash back",
     referrals: [
       {
         name: "Capital One Venture X",
@@ -41,6 +41,17 @@ const categories: Category[] = [
         description: "No-annual-fee cash back card with rotating 5% bonus categories and solid everyday rewards",
         bonus: "Earn $200 or $300 cash back after spending $500 on purchases in the first 3 months",
         href: "https://www.referyourchasecard.com/18d/CSJO5XQRI3",
+      },
+    ],
+  },
+  {
+    name: "Lifestyle",
+    description: "Apps and tools I use in my everyday life",
+    referrals: [
+      {
+        name: "Beli",
+        description: "An app I use to save restaurants, write reviews, share recommendations, and remember where I want to eat",
+        href: "https://beliapp.co/IAPVrHgmeLb?utm_source=in__s",
       },
     ],
   },

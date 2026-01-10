@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { siteConfig } from "@/lib/config";
-import { GitHubIcon, LinkedInIcon, GoodreadsIcon, SoundCloudIcon, EmailIcon, ArrowRightIcon } from "@/components/Icons";
+import { BeliIcon, GitHubIcon, LinkedInIcon, GoodreadsIcon, SoundCloudIcon, EmailIcon, ArrowRightIcon } from "@/components/Icons";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -61,6 +61,12 @@ const links = [
     name: "SoundCloud",
     href: siteConfig.socials.soundcloud,
     icon: SoundCloudIcon,
+    external: true,
+  },
+  {
+    name: "Beli",
+    href: siteConfig.socials.beli,
+    icon: BeliIcon,
     external: true,
   },
 ].filter((link) => link.href);
