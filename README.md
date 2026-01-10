@@ -94,7 +94,7 @@ When you enter the project directory, mise automatically activates these tool ve
 Edit `src/lib/config.ts` to customize:
 
 - Your name and site description
-- Social media links (GitHub, LinkedIn, SoundCloud, Email, Beli, etc.)
+- Social media links (GitHub, LinkedIn, SoundCloud, Beli, etc.)
 - Navigation links
 
 ```typescript

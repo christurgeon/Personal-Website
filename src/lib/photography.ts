@@ -118,23 +118,6 @@ export const photoCategories: PhotoCategory[] = [
     ],
   },
   {
-    slug: "patagonia",
-    name: "Patagonia",
-    country: "Argentina & Chile",
-    description: "Glaciers, mountains, and vast wilderness at the end of the world.",
-    coverImage: "/images/photography/patagonia/cover.jpg",
-    photos: [
-      {
-        id: "pat-1",
-        src: "/images/photography/patagonia/torres-del-paine.jpg",
-        alt: "Torres del Paine at sunrise",
-        width: 1200,
-        height: 1600,
-        location: "Torres del Paine",
-      },
-    ],
-  },
-  {
     slug: "colombia",
     name: "Colombia",
     country: "Colombia",

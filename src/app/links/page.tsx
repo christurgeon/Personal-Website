@@ -92,7 +92,7 @@ export default function LinksPage() {
               key={link.name}
               href={link.href}
               target={link.external ? "_blank" : undefined}
-              rel={link.external ? "noopened noreferrer" : undefined}
+              rel={link.external ? "noopener noreferrer" : undefined}
               className="bg-card border-border hover:border-accent/50 hover:shadow-accent/5 group animate-fade-in flex w-full items-center gap-4 rounded-xl border p-4 transition-all duration-300 hover:shadow-lg"
               style={{ animationDelay: `${(index + 1) * 80}ms`, opacity: 0 }}
             >

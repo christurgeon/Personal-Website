@@ -5,9 +5,9 @@ Tasks to complete before launching the personal website.
 ---
 
 ## 1. Generate Favicon
-- [ ] Create a unique favicon (initials "CT" or custom design)
-- [ ] Options: [Favicon.io](https://favicon.io/), [Canva](https://canva.com), or commission on Fiverr
-- [ ] Replace `src/app/favicon.ico`
+- [x] Create a unique favicon (initials "CT" or custom design)
+- [x] Options: [Favicon.io](https://favicon.io/), [Canva](https://canva.com), or commission on Fiverr
+- [x] Replace `src/app/favicon.ico`
 
 ## 2. Get a Website Name
 - [ ] Decide on domain name (e.g., christurgeon.com, christurgeon.dev)
@@ -15,7 +15,7 @@ Tasks to complete before launching the personal website.
 - [ ] Purchase domain
 
 ## 3. Populate Blogs
-- [ ] Write at least 2 blog posts to start
+- [x] Write at least 2 blog posts to start
 - [ ] Add posts to `content/posts/` as `.mdx` files
 - [ ] Add cover images to `public/images/blog/` (optional)
 
