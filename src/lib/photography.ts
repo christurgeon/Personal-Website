@@ -91,7 +91,7 @@ export const photoCategories: PhotoCategory[] = [
       },
     ],
   },
-    {
+  {
     slug: "jordan",
     name: "Jordan",
     country: "Jordan",

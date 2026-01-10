@@ -45,6 +45,18 @@ const categories: Category[] = [
     ],
   },
   {
+    name: "Finance",
+    description: "Financial tools I use",
+    referrals: [
+      {
+        name: "Charles Schwab",
+        description: "One of the reasons I choose Schwab is their debit card has no ATM fees, domestically or internationally",
+        bonus: "Get up to $1,000 through this referral depending on your initial funding amount",
+        href: "https://www.schwab.com/client-referral?refrid=REFEREUE4TERM",
+      },
+    ],
+  },
+  {
     name: "Lifestyle",
     description: "Apps and tools I use in my everyday life",
     referrals: [
@@ -52,18 +64,6 @@ const categories: Category[] = [
         name: "Beli",
         description: "An app I use to save restaurants, write reviews, share recommendations, and remember where I want to eat",
         href: "https://beliapp.co/IAPVrHgmeLb?utm_source=in__s",
-      },
-    ],
-  },
-  {
-    name: "Travel",
-    description: "Airlines, hostels, and travel services I recommend",
-    referrals: [
-      {
-        name: "Marriott Bonvoy",
-        description: "Something something",
-        bonus: "Something blah",
-        href: "https://example.com/capital-one",
       },
     ],
   },
