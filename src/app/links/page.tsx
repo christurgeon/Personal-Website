@@ -12,7 +12,7 @@ const links = [
   {
     name: "Website",
     href: "/",
-    description: "Read my blog & explore my work",
+    description: "Read my blog and explore my work",
     external: false,
   },
   {
@@ -24,7 +24,7 @@ const links = [
   {
     name: "Blog",
     href: "/blog",
-    description: "Thoughts on tech, design, and life",
+    description: "Thoughts on life, design, and tech",
     external: false,
   },
   {
@@ -52,7 +52,7 @@ const links = [
     external: true,
   },
   {
-    name: "Goodreads",
+    name: "What I'm Reading",
     href: siteConfig.socials.goodreads,
     icon: GoodreadsIcon,
     external: true,

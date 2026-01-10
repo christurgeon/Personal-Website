@@ -18,41 +18,93 @@ export interface PhotoCategory {
   photos: Photo[];
 }
 
-// Photography categories organized by location
-// Add your photos to public/images/photography/[category-slug]/
 export const photoCategories: PhotoCategory[] = [
   {
-    slug: "japan",
-    name: "Japan",
-    country: "Japan",
-    description: "Streets of Tokyo, temples of Kyoto, and the quiet beauty of rural Japan.",
-    coverImage: "/images/photography/japan/cover.jpg",
+    slug: "new-york-city",
+    name: "New York City",
+    country: "United States",
+    description: "TODO",
+    coverImage: "/images/photography/new-york-city/manhattan-bridge-1.jpg",
     photos: [
       {
-        id: "jp-1",
-        src: "/images/photography/japan/tokyo-shibuya.jpg",
-        alt: "Shibuya Crossing at night",
-        width: 1600,
-        height: 1067,
-        location: "Tokyo",
+        id: "ny-1",
+        src: "/images/photography/new-york-city/manhattan-bridge-1.jpg",
+        alt: "View from Manhattan Bridge with boken",
+        width: 1200,
+        height: 1600,
+        location: "Manhattan Bridge",
         date: "2024",
       },
       {
-        id: "jp-2",
-        src: "/images/photography/japan/kyoto-temple.jpg",
-        alt: "Golden Pavilion in autumn",
-        width: 1600,
-        height: 2400,
-        location: "Kyoto",
+        id: "ny-2",
+        src: "/images/photography/new-york-city/manhattan-bridge-2.jpg",
+        alt: "View from Manhattan Bridge",
+        width: 1200,
+        height: 1500,
+        location: "Manhattan Bridge",
         date: "2024",
       },
       {
-        id: "jp-3",
-        src: "/images/photography/japan/osaka-street.jpg",
-        alt: "Dotonbori street lights",
-        width: 1600,
-        height: 1067,
-        location: "Osaka",
+        id: "ny-3",
+        src: "/images/photography/new-york-city/time-square-1.jpg",
+        alt: "Time square",
+        width: 1200,
+        height: 1500,
+        location: "Time Square",
+        date: "2024",
+      },
+      {
+        id: "ny-4",
+        src: "/images/photography/new-york-city/top-of-the-rock-1.jpg",
+        alt: "Top of the Rock",
+        width: 1200,
+        height: 1500,
+        location: "Manhattan",
+        date: "2024",
+      },
+      {
+        id: "ny-5",
+        src: "/images/photography/new-york-city/grand-central-station-1.jpg",
+        alt: "Grand Central Station",
+        width: 1200,
+        height: 1500,
+        location: "Grand Central Station",
+        date: "2024",
+      },
+      {
+        id: "ny-6",
+        src: "/images/photography/new-york-city/subway-1.jpg",
+        alt: "Subway Station",
+        width: 1200,
+        height: 1500,
+        location: "Manhattan",
+        date: "2024",
+      },
+      {
+        id: "ny-7",
+        src: "/images/photography/new-york-city/central-park-1.jpg",
+        alt: "Central Park",
+        width: 1200,
+        height: 1500,
+        location: "Central Park",
+        date: "2024",
+      },
+    ],
+  },
+    {
+    slug: "jordan",
+    name: "Jordan",
+    country: "Jordan",
+    description: "TODO",
+    coverImage: "/images/photography/Jordan/cover.jpg",
+    photos: [
+      {
+        id: "jdn-1",
+        src: "/images/photography/jordan/wadi-rum-1.jpg",
+        alt: "Wadi Rum",
+        width: 1200,
+        height: 1600,
+        location: "Wadi Rum",
         date: "2024",
       },
     ],
@@ -97,70 +149,16 @@ export const photoCategories: PhotoCategory[] = [
     slug: "iceland",
     name: "Iceland",
     country: "Iceland",
-    description: "Fire and ice: volcanoes, waterfalls, and the northern lights.",
+    description: "TODO",
     coverImage: "/images/photography/iceland/cover.jpg",
     photos: [
       {
         id: "ice-1",
         src: "/images/photography/iceland/aurora.jpg",
         alt: "Northern Lights over glacier lagoon",
-        width: 1600,
-        height: 1067,
+        width: 1200,
+        height: 1600,
         location: "Jökulsárlón",
-        date: "2024",
-      },
-      {
-        id: "ice-2",
-        src: "/images/photography/iceland/waterfall.jpg",
-        alt: "Skógafoss waterfall",
-        width: 1067,
-        height: 1600,
-        location: "South Coast",
-        date: "2024",
-      },
-      {
-        id: "ice-3",
-        src: "/images/photography/iceland/black-sand.jpg",
-        alt: "Black sand beach",
-        width: 1600,
-        height: 1067,
-        location: "Reynisfjara",
-        date: "2024",
-      },
-    ],
-  },
-  {
-    slug: "new-york",
-    name: "New York",
-    country: "United States",
-    description: "The city that never sleeps, from street level to skyline.",
-    coverImage: "/images/photography/new-york/cover.jpg",
-    photos: [
-      {
-        id: "ny-1",
-        src: "/images/photography/new-york/skyline.jpg",
-        alt: "Manhattan skyline at dusk",
-        width: 1600,
-        height: 1067,
-        location: "Brooklyn",
-        date: "2024",
-      },
-      {
-        id: "ny-2",
-        src: "/images/photography/new-york/central-park.jpg",
-        alt: "Central Park in autumn",
-        width: 1600,
-        height: 1200,
-        location: "Central Park",
-        date: "2024",
-      },
-      {
-        id: "ny-3",
-        src: "/images/photography/new-york/subway.jpg",
-        alt: "Subway station",
-        width: 1067,
-        height: 1600,
-        location: "Manhattan",
         date: "2024",
       },
     ],
@@ -179,9 +177,9 @@ export function getAllPhotos(): Photo[] {
   return photoCategories.flatMap((category) => category.photos);
 }
 
+// Fisher-Yates shuffle
 export function getShuffledPhotos(): Photo[] {
   const allPhotos = getAllPhotos();
-  // Fisher-Yates shuffle
   for (let i = allPhotos.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [allPhotos[i], allPhotos[j]] = [allPhotos[j], allPhotos[i]];
