@@ -54,6 +54,12 @@ const categories: Category[] = [
         bonus: "Get up to $1,000 through this referral depending on your initial funding amount",
         href: "https://www.schwab.com/client-referral?refrid=REFEREUE4TERM",
       },
+      {
+        name: "SoFi",
+        description: "An online bank that offers checking and savings accounts with no account fees or minimum balance requirements",
+        bonus: "You'll get a $25 bonus when you open a SoFi Checking and Savings account, and either $50 or $300 when you set up eligible direct deposit of $1,000 or more. Terms apply.",
+        href: "https://urldefense.com/v3/__https://www.sofi.com/invite/money?gcp=03e69213-cfcd-4cf5-a7ae-c3d01fc8fb4a&isAliasGcp=false__;!!K_TC0FI_KA!vYcVZSr7zEqiiSoYvQp4K-J_Rvr6qNUzUoAgkmOssBToWw3VByPocooO0x5if3pAj3ZK_fyqoLvOl09lAnnbb7mTHEZO$",
+      },
     ],
   },
   {
