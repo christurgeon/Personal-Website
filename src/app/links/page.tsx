@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { siteConfig } from "@/lib/config";
-import { BeliIcon, GitHubIcon, LinkedInIcon, GoodreadsIcon, SoundCloudIcon, EmailIcon, ArrowRightIcon } from "@/components/Icons";
+import { BeliIcon, GitHubIcon, LinkedInIcon, GoodreadsIcon, SoundCloudIcon, EmailIcon, ArrowRightIcon, PencilIcon, CameraIcon, GiftIcon } from "@/components/Icons";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -14,6 +14,7 @@ const links = [
     href: "/blog",
     description: "Read the blog",
     show_description: false,
+    icon: PencilIcon,
     external: false,
   },
   {
@@ -21,6 +22,7 @@ const links = [
     href: "/photography",
     description: "View my photo gallery",
     show_description: false,
+    icon: CameraIcon,
     external: false,
   },
   {
@@ -28,6 +30,7 @@ const links = [
     href: "/referrals",
     description: "Services I use and recommend",
     show_description: false,
+    icon: GiftIcon,
     external: false,
   },
   {
