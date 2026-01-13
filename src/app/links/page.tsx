@@ -10,27 +10,15 @@ export const metadata: Metadata = {
 
 const links = [
   {
-    name: "Website",
-    href: "/",
-    description: "Read my blog and explore my work",
+    name: "Blog",
+    href: "/blog",
+    description: "Read the blog",
     external: false,
   },
   {
     name: "Photography",
     href: "/photography",
     description: "View my photo gallery",
-    external: false,
-  },
-  {
-    name: "Blog",
-    href: "/blog",
-    description: "Thoughts on life, design, and tech",
-    external: false,
-  },
-  {
-    name: "About",
-    href: "/about",
-    description: "Learn more about me",
     external: false,
   },
   {
