@@ -10,9 +10,9 @@ Tasks to complete before launching the personal website.
 - [x] Replace `src/app/favicon.ico`
 
 ## 2. Get a Website Name
-- [ ] Decide on domain name (e.g., christurgeon.com, christurgeon.dev)
-- [ ] Check availability on [Namecheap](https://namecheap.com), [Porkbun](https://porkbun.com), or [Google Domains](https://domains.google)
-- [ ] Purchase domain
+- [x] Decide on domain name (e.g., christurgeon.com, christurgeon.dev)
+- [x] Check availability on [Namecheap](https://namecheap.com), [Porkbun](https://porkbun.com), or [Google Domains](https://domains.google)
+- [x] Purchase domain
 
 ## 3. Populate Blogs
 - [x] Write at least 2 blog posts to start
@@ -26,14 +26,14 @@ Tasks to complete before launching the personal website.
 - [ ] Build gallery component
 
 ## 5. Hosting
-- [ ] Decide on hosting platform:
-  - **Vercel** (recommended for Next.js) — Free tier, automatic deploys from GitHub
+- [x] Decide on hosting platform:
+  - ✅ **Vercel** (recommended for Next.js) — Free tier, automatic deploys from GitHub
   - **GitHub Pages** — Free, but requires static export
   - **Netlify** — Free tier, good alternative to Vercel
   - **Cloudflare Pages** — Free, fast global CDN
-- [ ] Connect GitHub repo to hosting platform
-- [ ] Configure custom domain
-- [ ] Set up SSL certificate (usually automatic)
+- [x] Connect GitHub repo to hosting platform
+- [x] Configure custom domain
+- [x] Set up SSL certificate (usually automatic)
 
 ---
 

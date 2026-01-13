@@ -39,7 +39,7 @@ export const photoCategories: PhotoCategory[] = [
         src: "/images/photography/new-york-city/manhattan-bridge-2.jpg",
         alt: "View from Manhattan Bridge",
         width: 1200,
-        height: 1500,
+        height: 1600,
         location: "Manhattan Bridge",
       },
       {
@@ -47,7 +47,7 @@ export const photoCategories: PhotoCategory[] = [
         src: "/images/photography/new-york-city/time-square-1.jpg",
         alt: "Time square",
         width: 1200,
-        height: 1500,
+        height: 1600,
         location: "Time Square",
       },
       {
@@ -55,7 +55,7 @@ export const photoCategories: PhotoCategory[] = [
         src: "/images/photography/new-york-city/top-of-the-rock-1.jpg",
         alt: "Top of the Rock",
         width: 1200,
-        height: 1500,
+        height: 1600,
         location: "Manhattan",
       },
       {
@@ -63,7 +63,7 @@ export const photoCategories: PhotoCategory[] = [
         src: "/images/photography/new-york-city/grand-central-station-1.jpg",
         alt: "Grand Central Station",
         width: 1200,
-        height: 1500,
+        height: 1600,
         location: "Grand Central Station",
       },
       {
@@ -71,7 +71,7 @@ export const photoCategories: PhotoCategory[] = [
         src: "/images/photography/new-york-city/subway-1.jpg",
         alt: "Subway Station",
         width: 1200,
-        height: 1500,
+        height: 1600,
         location: "Manhattan",
       },
       {
@@ -79,7 +79,7 @@ export const photoCategories: PhotoCategory[] = [
         src: "/images/photography/new-york-city/central-park-1.jpg",
         alt: "Central Park",
         width: 1200,
-        height: 1500,
+        height: 1600,
         location: "Central Park",
       },
     ],
@@ -88,7 +88,7 @@ export const photoCategories: PhotoCategory[] = [
     slug: "jordan",
     name: "Jordan",
     country: "Jordan",
-    description: "TODO",
+    description: "Ancient wonders carved in rose-red cliffs, vast desert landscapes, and timeless Bedouin hospitality.",
     coverImage: "/images/photography/jordan/petra-1.jpg",
     photos: [
       {
@@ -121,7 +121,8 @@ export const photoCategories: PhotoCategory[] = [
     slug: "colombia",
     name: "Colombia",
     country: "Colombia",
-    description: "TODO",
+    description:
+      "Towering wax palms in misty valleys, vibrant cities pulsing with music and art, and lush landscapes stretching from Caribbean coasts to Andean peaks.",
     coverImage: "/images/photography/colombia/cocora-1.jpg",
     photos: [
       {
@@ -130,7 +131,7 @@ export const photoCategories: PhotoCategory[] = [
         alt: "Cocora Palm Trees in the Clouds",
         width: 1200,
         height: 1600,
-        location: "Cocora",
+        location: "Cocora Valley",
       },
       {
         id: "cl-1",
@@ -138,7 +139,7 @@ export const photoCategories: PhotoCategory[] = [
         alt: "Cocora Palm Trees in the Clouds",
         width: 1200,
         height: 1600,
-        location: "Cocora",
+        location: "Cocora Valley",
       },
     ],
   },

@@ -88,8 +88,8 @@ export default function AboutPage() {
       </div>
 
       <div className="bg-card border-border animate-fade-in-delay-3 mt-16 rounded-xl border p-8">
-        <h3 className="mb-3 font-serif text-2xl font-medium">Want to read my thoughts?</h3>
-        <p className="text-muted mb-4">Check out my blog for articles on technology, design, and more.</p>
+        <h3 className="mb-3 font-serif text-2xl font-medium">Care to read my thoughts?</h3>
+        <p className="text-muted mb-4">Checkout out my blog for personal essays and occasional musings.</p>
         <Link href="/blog" className="text-accent hover:text-accent-hover inline-flex items-center gap-2 transition-colors">
           View the Blog
           <ArrowRightIcon className="h-4 w-4" />
