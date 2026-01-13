@@ -110,36 +110,10 @@ export const siteConfig = {
 };
 ```
 
-## Writing Blog Posts
-
-Create a new `.mdx` file in `content/posts/`:
-
-```markdown
----
-title: "My Post Title"
-date: "2026-01-07"
-excerpt: "A brief description of the post"
-tags: ["tag1", "tag2"]
-coverImage: "/images/blog/my-image.jpg"  # Optional
----
-
-Your content here in Markdown...
-```
-
-### Frontmatter Fields
-
-| Field        | Required | Description                        |
-| ------------ | -------- | ---------------------------------- |
-| `title`      | Yes      | Post title                         |
-| `date`       | Yes      | Publication date (YYYY-MM-DD)      |
-| `excerpt`    | Yes      | Brief description for previews     |
-| `tags`       | No       | Array of tag strings               |
-| `coverImage` | No       | Path to cover image in `/public`   |
-
 ### Adding Images
 
 1. Place images in `public/images/blog/`
-2. Reference them in your MDX:
+2. Reference them in MDX:
 
 ```markdown
 ![Alt text](/images/blog/my-image.jpg)

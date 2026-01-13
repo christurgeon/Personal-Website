@@ -16,7 +16,7 @@ Tasks to complete before launching the personal website.
 
 ## 3. Populate Blogs
 - [x] Write at least 2 blog posts to start
-- [ ] Add posts to `content/posts/` as `.mdx` files
+- [x] Add posts to `content/posts/` as `.mdx` files
 - [ ] Add cover images to `public/images/blog/` (optional)
 
 ## 4. Photo Gallery
@@ -41,3 +41,7 @@ Tasks to complete before launching the personal website.
 - [ ] Add analytics (Vercel Analytics, Plausible, or Umami)
 - [ ] Set up Open Graph images for social sharing
 - [ ] Add RSS feed for blog
+
+- All static pages + images in /public served via Vercel's global CDN
+- <Image> optimizations automatically applied
+- Free tier handles small/medium traffic easily

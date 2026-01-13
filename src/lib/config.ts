@@ -1,7 +1,7 @@
 export const siteConfig = {
   name: "Chris Turgeon",
   title: "Personal Website",
-  description: "Howdy! You've landed on my corner of the internet. I write about technology, design, and life.",
+  description: "I am a software engineer at Point72. Outside of work, I spend my time traveling, photographing the world around me, reading voraciously, tinkering with personal projects, and occasionally producing barely-listenable electronic music.",
   url: "https://christurgeon.com",
 
   // Social links

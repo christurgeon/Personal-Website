@@ -10,7 +10,7 @@ export default function Home() {
   return (
     <div className="gradient-bg">
       {/* Hero Section */}
-      <section className="mx-auto max-w-4xl px-6 py-20 md:py-32">
+      <section className="mx-auto max-w-4xl px-6 py-20 md:py-24">
         <div className="animate-fade-in">
           <p className="text-accent mb-4 font-medium">Hello, I&apos;m</p>
           <h1 className="mb-6 font-serif text-5xl font-medium tracking-tight md:text-7xl">{siteConfig.name}</h1>
