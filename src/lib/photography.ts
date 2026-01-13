@@ -23,7 +23,7 @@ export const photoCategories: PhotoCategory[] = [
     slug: "new-york-city",
     name: "New York City",
     country: "United States",
-    description: "The city that never sleeps.",
+    description: "Capturing the energy, architecture, and everyday moments in the city that never sleeps.",
     coverImage: "/images/photography/new-york-city/manhattan-bridge-1.jpg",
     photos: [
       {
