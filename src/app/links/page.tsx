@@ -13,18 +13,21 @@ const links = [
     name: "Blog",
     href: "/blog",
     description: "Read the blog",
+    show_description: false,
     external: false,
   },
   {
     name: "Photography",
     href: "/photography",
     description: "View my photo gallery",
+    show_description: false,
     external: false,
   },
   {
     name: "Referrals",
     href: "/referrals",
     description: "Services I use and recommend",
+    show_description: false,
     external: false,
   },
   {
@@ -91,7 +94,7 @@ export default function LinksPage() {
               )}
               <div className="flex-1">
                 <span className="group-hover:text-accent font-medium transition-colors">{link.name}</span>
-                {link.description && <p className="text-muted mt-0.5 text-sm">{link.description}</p>}
+                {link.show_description && link.description && <p className="text-muted mt-0.5 text-sm">{link.description}</p>}
               </div>
               <ArrowRightIcon className="text-muted group-hover:text-accent h-4 w-4 transition-all group-hover:translate-x-1" />
             </a>
