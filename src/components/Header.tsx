@@ -24,7 +24,7 @@ export function Header() {
   return (
     <header className="bg-background/80 border-border sticky top-0 z-50 border-b backdrop-blur-md">
       <nav className="mx-auto flex max-w-4xl items-center justify-between px-6 py-4">
-        <Link href="/" className="hover:text-accent font-serif text-xl font-medium tracking-tight transition-colors">
+        <Link href="/" className="hover:text-accent hidden font-serif text-xl font-medium tracking-tight transition-colors md:block">
           {siteConfig.name}
         </Link>
 
