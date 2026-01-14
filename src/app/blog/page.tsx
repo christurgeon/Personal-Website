@@ -1,10 +1,11 @@
+import { siteConfig } from "@/lib/config";
 import { getAllPosts } from "@/lib/blog";
 import { PostCard } from "@/components/PostCard";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Blog",
-  description: "Thoughts on technology, design, and life.",
+  description: `Where ${siteConfig.name} writes about whatever is on his mind - blog posts about life, technology, science, travel, and things he's learned along the way.`,
 };
 
 export default function BlogPage() {
@@ -14,7 +15,7 @@ export default function BlogPage() {
     <div className="mx-auto max-w-4xl px-6 py-16">
       <header className="animate-fade-in mb-12">
         <h1 className="mb-4 font-serif text-4xl font-medium tracking-tight md:text-5xl">Blog</h1>
-        <p className="text-muted text-xl">Thoughts on technology, design, and life.</p>
+        <p className="text-muted text-xl">Stories, essays, advice, and the occasional rabbit hole.</p>
       </header>
 
       {posts.length > 0 ? (

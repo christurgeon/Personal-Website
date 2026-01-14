@@ -1,11 +1,22 @@
 import Image from "next/image";
 import { siteConfig } from "@/lib/config";
-import { BeliIcon, GitHubIcon, LinkedInIcon, GoodreadsIcon, SoundCloudIcon, EmailIcon, ArrowRightIcon, PencilIcon, CameraIcon, GiftIcon } from "@/components/Icons";
+import {
+  BeliIcon,
+  GitHubIcon,
+  LinkedInIcon,
+  GoodreadsIcon,
+  SoundCloudIcon,
+  EmailIcon,
+  ArrowRightIcon,
+  PencilIcon,
+  CameraIcon,
+  GiftIcon,
+} from "@/components/Icons";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Links",
-  description: `Connect with ${siteConfig.name}`,
+  description: `All of ${siteConfig.name}'s links in one place - blog, photos, music, social profiles, and more.`,
 };
 
 const links = [
@@ -75,7 +86,7 @@ export default function LinksPage() {
             <Image src="/images/profile.jpg" alt={siteConfig.name} fill className="object-cover" priority />
           </div>
 
-          <h1 className="mb-1 font-serif text-2xl font-medium tracking-tight">{siteConfig.name}</h1>
+          <h1 className="mb-1 font-serif text-lg font-medium tracking-tight sm:text-2xl">{siteConfig.name}</h1>
           <p className="text-muted text-sm">{siteConfig.description}</p>
         </div>
 

@@ -5,7 +5,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "About",
-  description: `Learn more about ${siteConfig.name}`,
+  description: `About ${siteConfig.name}, a software engineer at Point72 sharing blog posts and photography alongside personal coding projects.`,
 };
 
 export default function AboutPage() {
@@ -16,27 +16,29 @@ export default function AboutPage() {
       </header>
 
       <div className="prose prose-lg animate-fade-in-delay-1 mb-12 max-w-none">
-        <p>Howdy! I&apos;m {siteConfig.name}. Thanks for stopping by.</p>
-
         <p>
-          This is a place where I share my thoughts, ideas, knowledge, and projects. Feel free to explore the <Link href="/blog">blog</Link> or
-          connect with me through the links below.
+          Howdy! I&apos;m {siteConfig.name}. Thanks for stopping by. This site is equal parts notebook, gallery, and experiment — a place where I
+          collect and share the things I care deeply about.
         </p>
 
         <h2>What I Do</h2>
         <p>
-          I write about a wide range of topics shaped by curiosity and lived experience. I&apos;ve traveled to 26 countries, many of them solo,
-          including a 3.5‑month journey across South America. By day, I&apos;m a software engineer at{" "}
+          By day, I&apos;m a software engineer at{" "}
           <Link href="https://point72.com/" target="_blank" rel="noopener noreferrer">
             Point72
           </Link>
-          , and in my free time I enjoy photography and producing electronic music.
+          . Outside of work, I spend my time <Link href="/blog">writing</Link>, taking <Link href="/photography">photos</Link> of places and moments I
+          don&apos;t want to forget, and producing{" "}
+          <Link href={siteConfig.socials.soundcloud} target="_blank" rel="noopener noreferrer">
+            electronic music
+          </Link>{" "}
+          that ranges from barely listenable to occasionally decent.
         </p>
 
         <h2>Get in Touch</h2>
         <p>
           I&apos;m always interested in hearing from new people. Whether you have a question, want to collaborate, or just want to say hi, feel free
-          to reach out.
+          to reach out. Some of my favorite conversations have started that way.
         </p>
       </div>
 
@@ -89,7 +91,7 @@ export default function AboutPage() {
 
       <div className="bg-card border-border animate-fade-in-delay-3 mt-16 rounded-xl border p-8">
         <h3 className="mb-3 font-serif text-2xl font-medium">Care to read my thoughts?</h3>
-        <p className="text-muted mb-4">Checkout out my blog for personal essays and occasional musings.</p>
+        <p className="text-muted mb-4">Checkout out my blog for personal essays and the occasional rabbit hole.</p>
         <Link href="/blog" className="text-accent hover:text-accent-hover inline-flex items-center gap-2 transition-colors">
           View the Blog
           <ArrowRightIcon className="h-4 w-4" />
