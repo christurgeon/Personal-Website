@@ -9,7 +9,7 @@ export const siteConfig = {
   socials: {
     email: "turgechr@duck.com",
     github: "https://github.com/christurgeon",
-    linkedin: "https://www.linkedin.com/in/chris-turgeon-29b42a151",
+    linkedin: "https://www.linkedin.com/in/chris-turgeon",
     goodreads: "https://www.goodreads.com/user/show/132072198-chris-turgeon",
     soundcloud: "https://soundcloud.com/technically-techo",
     beli: "https://beliapp.co/app/christurgeon",
