@@ -7,6 +7,7 @@ import {
   GoodreadsIcon,
   SoundCloudIcon,
   EmailIcon,
+  ResumeIcon,
   ArrowRightIcon,
   PencilIcon,
   CameraIcon,
@@ -34,14 +35,6 @@ const links = [
     description: "View my photo gallery",
     show_description: false,
     icon: CameraIcon,
-    external: false,
-  },
-  {
-    name: "Referrals",
-    href: "/referrals",
-    description: "Services I use and recommend",
-    show_description: false,
-    icon: GiftIcon,
     external: false,
   },
   {
@@ -73,6 +66,22 @@ const links = [
     href: siteConfig.socials.beli,
     icon: BeliIcon,
     external: true,
+  },
+  {
+    name: "Resume",
+    href: "/chris_turgeon_resume.pdf",
+    description: "Download my resume",
+    show_description: false,
+    icon: ResumeIcon,
+    external: true,
+  },
+  {
+    name: "Referrals",
+    href: "/referrals",
+    description: "Services I use and recommend",
+    show_description: false,
+    icon: GiftIcon,
+    external: false,
   },
 ].filter((link) => link.href);
 
