@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { siteConfig } from "@/lib/config";
-import { GitHubIcon, LinkedInIcon, GoodreadsIcon, SoundCloudIcon, EmailIcon, ArrowRightIcon } from "@/components/Icons";
+import { ArrowRightIcon, GitHubIcon, GoodreadsIcon, LinkedInIcon, SoundCloudIcon, ResumeIcon } from "@/components/Icons";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -32,7 +32,16 @@ export default function AboutPage() {
           <Link href={siteConfig.socials.soundcloud} target="_blank" rel="noopener noreferrer">
             electronic music
           </Link>{" "}
-          that ranges from barely listenable to occasionally decent.
+          that ranges from barely listenable to occasionally decent. You can also{" "}
+          <a
+            href="/chris_turgeon_resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-accent hover:text-accent-hover transition-colors"
+          >
+            view my resume
+          </a>{" "}
+          if you want to see my professional background.
         </p>
 
         <h2>Get in Touch</h2>
@@ -42,7 +51,7 @@ export default function AboutPage() {
         </p>
       </div>
 
-      <div className="animate-fade-in-delay-2 flex flex-wrap gap-4">
+      <div className="animate-fade-in-delay-2 flex flex-wrap justify-center gap-4">
         {siteConfig.socials.github && (
           <a
             href={siteConfig.socials.github}
