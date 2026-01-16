@@ -34,7 +34,7 @@ export default function AboutPage() {
           </Link>{" "}
           that ranges from barely listenable to occasionally decent. You can also{" "}
           <a
-            href="/chris_turgeon_resume.pdf"
+            href={siteConfig.documents.resume}
             target="_blank"
             rel="noopener noreferrer"
             className="text-accent hover:text-accent-hover transition-colors"

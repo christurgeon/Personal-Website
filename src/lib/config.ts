@@ -15,6 +15,11 @@ export const siteConfig = {
     beli: "https://beliapp.co/app/christurgeon",
   },
 
+  // Documents
+  documents: {
+    resume: "/chris_turgeon_resume.pdf",
+  },
+
   // Navigation links
   nav: [
     { name: "Home", href: "/" },

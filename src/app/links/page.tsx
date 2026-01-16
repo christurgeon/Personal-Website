@@ -6,7 +6,6 @@ import {
   LinkedInIcon,
   GoodreadsIcon,
   SoundCloudIcon,
-  EmailIcon,
   ResumeIcon,
   ArrowRightIcon,
   PencilIcon,
@@ -69,7 +68,7 @@ const links = [
   },
   {
     name: "Resume",
-    href: "/chris_turgeon_resume.pdf",
+    href: siteConfig.documents.resume,
     description: "Download my resume",
     show_description: false,
     icon: ResumeIcon,
