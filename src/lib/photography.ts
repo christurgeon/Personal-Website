@@ -84,7 +84,7 @@ export const photoCategories: PhotoCategory[] = [
       },
       {
         id: "ny-8",
-        src: "/images/photography/new-york-city/subway-1.jpg",
+        src: "/images/photography/new-york-city/subway-2.jpg",
         alt: "Subway Station",
         width: 1638,
         height: 2048,
@@ -124,7 +124,7 @@ export const photoCategories: PhotoCategory[] = [
       },
       {
         id: "ny-13",
-        src: "/images/photography/new-york-city/subway-2.jpg",
+        src: "/images/photography/new-york-city/subway-3.jpg",
         alt: "Subway Station",
         width: 1638,
         height: 2048,
