@@ -2,7 +2,7 @@ export const siteConfig = {
   name: "Chris Turgeon",
   title: "Home",
   description:
-    "I am a software engineer on the infrastructure automation team at Point72, building software that quietly keeps everything else running. Outside of work, I spend my time traveling, photographing the world around me, reading books, tinkering with personal projects, and occasionally producing barely-listenable electronic music.",
+    "By day, I’m a software engineer at Point72. By night (and on weekends), I’m traveling, photographing whatever catches my eye, reading a lot, hacking on personal projects, and occasionally producing barely-listenable electronic music.",
   url: "https://christurgeon.com",
 
   // Social links
