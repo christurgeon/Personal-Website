@@ -17,8 +17,8 @@ export default function AboutPage() {
 
       <div className="prose prose-lg animate-fade-in-delay-1 mb-12 max-w-none">
         <p>
-          Howdy! I&apos;m {siteConfig.name}. Thanks for stopping by. This site is equal parts notebook, gallery, and experiment — a place where I
-          collect and share the things I care deeply about.
+          Howdy! I&apos;m {siteConfig.name}. Thanks for stopping by. This site is equal parts notebook, photo gallery, and experiment — a place where
+          I collect and share some of the things I care deeply about.
         </p>
 
         <h2>What I Do</h2>

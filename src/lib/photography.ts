@@ -414,6 +414,22 @@ export const photoCategories: PhotoCategory[] = [
         height: 2048,
         location: "Torres del Paine",
       },
+      {
+        id: "pg-3",
+        src: "/images/photography/patagonia/penguin-1.jpg",
+        alt: "Penguins in Martillo Island, Ushuaia, Argentina",
+        width: 1638,
+        height: 2048,
+        location: "Ushuaia",
+      },
+      {
+        id: "pg-4",
+        src: "/images/photography/patagonia/penguin-2.jpg",
+        alt: "Penguins in Martillo Island, Ushuaia, Argentina",
+        width: 1638,
+        height: 2048,
+        location: "Ushuaia",
+      },
     ],
   },
 ];
