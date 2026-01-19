@@ -42,6 +42,12 @@ const categories: Category[] = [
         bonus: "Earn $200 or $300 cash back after spending $500 on purchases in the first 3 months",
         href: "https://www.referyourchasecard.com/18d/CSJO5XQRI3",
       },
+      {
+        name: "Venmo",
+        description: "No-annual-fee card with 3% cash back on all purchases",
+        bonus: "Earn $100 cash back after spending $500 on purchases in the first 3 months",
+        href: "https://get.venmo.com/7xWaniQM3Zb",
+      },
     ],
   },
   {
