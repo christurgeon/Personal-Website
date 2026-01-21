@@ -4,8 +4,8 @@ A modern personal website and blog built with Next.js, Tailwind CSS, and MDX.
 
 ## Tech Stack
 
-- [Next.js 16](https://nextjs.org/) - React framework with App Router
-- [Tailwind CSS v4](https://tailwindcss.com/) - Utility-first CSS
+- [Next.js](https://nextjs.org/) - React framework with App Router
+- [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS
 - [MDX](https://mdxjs.com/) - Markdown with JSX
 - [TypeScript](https://www.typescriptlang.org/) - Type safety
 - [mise](https://mise.jdx.dev/) - Development environment management
