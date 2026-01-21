@@ -95,7 +95,7 @@ export default function LinksPage() {
           </div>
 
           <h1 className="mb-1 font-serif text-lg font-medium tracking-tight sm:text-2xl">{siteConfig.name}</h1>
-          <p className="text-muted text-sm">{siteConfig.description}</p>
+          <p className="text-muted text-sm">{siteConfig.linksPageDescription}</p>
         </div>
 
         {/* All Link*/}

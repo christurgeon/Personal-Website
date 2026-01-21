@@ -3,6 +3,7 @@ export const siteConfig = {
   title: "Home",
   description:
     "By day, I’m a software engineer at Point72. By night (and on weekends), I’m traveling, photographing whatever catches my eye, reading, hacking on personal projects, and occasionally producing barely-listenable electronic music.",
+  linksPageDescription: "A few places I hang out on the internet. Take a look around.",
   url: "https://christurgeon.com",
 
   // Social links
