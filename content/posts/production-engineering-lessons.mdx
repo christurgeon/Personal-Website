@@ -323,10 +323,228 @@ iptables -S
 ip6tables -S
 ```
 
-## A Final Thought
+---
 
-Production engineering is as much art as science. These commands are tools, but knowing when to use them comes from experience. The key is developing a methodology: start broad, narrow down based on what you find, and always verify your hypotheses.
+## Scenario: Detecting Memory Leaks
 
-Keep this guide handy. Bookmark it, print it, adapt it to your environment. Most importantly, when you discover a new technique that saves you during an incident, add it to your own collection. The best debugging toolkit is the one you build yourself, refined through many late-night incidents and triumphant resolutions.
+Memory leaks occur when programs continuously allocate memory without releasing it, eventually consuming all available RAM.
+
+**Step-by-Step Detection:**
+
+```bash
+# 1. SSH into server
+ssh user@your-server-ip
+
+# 2. Check system-wide memory usage
+free -m
+
+# 3. Find memory-consuming processes
+top -o %MEM  # Press Shift+M to sort by memory
+# Or:
+ps aux --sort=-%mem | head
+
+# 4. Confirm memory is not being freed
+watch -n 2 'ps -o pid,cmd,%mem,%cpu --sort=-%mem | head'
+# Let this run for several minutes—if %MEM keeps increasing, you have a leak
+
+# 5. Check file descriptor leaks
+sudo lsof -p <PID> | wc -l
+# Run every 10-30 seconds—if count keeps rising, you have an FD leak
+```
+
+**For C/C++ Applications:**
+```bash
+# Stop the server and run under Valgrind
+valgrind --leak-check=full ./myapp
+```
+
+Sample output showing a leak:
+```
+==1234== 10,240 bytes in 2 blocks are definitely lost in loss record 42 of 78
+==1234==    at 0x4C2FB55: malloc (vg_replace_malloc.c:299)
+==1234==    by 0x401234: some_func (main.c:25)
+==1234==    by 0x401567: main (main.c:45)
+```
+
+**For Python Applications:**
+```python
+import tracemalloc
+tracemalloc.start()
+# ... run your code ...
+snapshot = tracemalloc.take_snapshot()
+top_stats = snapshot.statistics('lineno')
+for stat in top_stats[:10]:
+    print(stat)
+```
+
+**Production Heap Profiling:**
+- Use `gperftools` (tcmalloc) for live heap profiling
+- Use `jemalloc` for heap introspection and runtime stats
+
+---
+
+## Scenario: Debugging Failed Mount Points
+
+When `ls` fails on a mount point, you need to understand what went wrong with the filesystem attachment.
+
+**Understanding Mounting:**
+- Mounting makes a filesystem accessible at a directory (mount point)
+- Common types: local (ext4, xfs), network (NFS, CIFS), virtual (tmpfs, proc)
+
+**Debugging Strategy:**
+
+```bash
+# 1. Check current mounts
+mount | grep /mnt/myshare
+# Or:
+findmnt /mnt/myshare
+
+# 2. Verify mount point directory
+ls -ld /mnt/myshare
+
+# 3. Check kernel logs
+dmesg | tail -50
+
+# Sample problematic output:
+# [223.938439] nfs: server 192.168.1.10 not responding, still trying
+# [224.942345] nfs: mount option 'vers=3' not supported
+
+# 4. Check syslog
+grep -i mount /var/log/syslog
+
+# 5. Check what's using the mount
+lsof +D /mnt/myshare
+
+# 6. Verify network connectivity (for NFS/CIFS)
+ping 192.168.1.10
+telnet 192.168.1.10 2049  # NFS port
+
+# 7. Use strace to debug mount syscalls
+strace -f mount -t nfs 192.168.1.10:/export /mnt/myshare
+```
+
+**Common Failure Scenarios:**
+
+**Scenario: `ls /mnt/myshare` hangs**
+- Root cause: NFS server unreachable or hard mount hanging
+- Solution: Use soft mount with timeout
+```bash
+mount -t nfs -o soft,timeo=2 192.168.1.10:/export /mnt/myshare
+```
+
+**Scenario: "mount: wrong fs type, bad option, bad superblock"**
+```bash
+# Debug:
+blkid /dev/sdb1
+file -s /dev/sdb1
+fsck /dev/sdb1
+```
+
+**Scenario: Mount succeeds but `ls` shows I/O error**
+```bash
+# Check for disk failure or corruption
+dmesg | grep -i error
+```
+
+**Advanced Concepts:**
+
+**Lazy Unmounts:**
+```bash
+# Useful when mount point is busy
+umount -l /mnt/myshare
+```
+
+**Remounting:**
+```bash
+# Change mount options without unmounting
+mount -o remount,ro /mnt/myshare
+```
+
+**Mount Namespaces (for containers):**
+```bash
+# List mount namespaces
+lsns -t mnt
+
+# Enter a namespace
+nsenter -t <PID> -m
+```
+
+---
+
+## Essential Concepts & Glossary
+
+### Key Technical Terms
+
+**Autoscaling** – Automatically adjusting the number of running instances based on demand metrics (CPU, request volume, etc.)
+
+**Circuit Breaker** – A resilience pattern that stops requests to a failing service to prevent cascading failures
+
+**Connection Pool** – A cache of reusable database connections to avoid connection establishment overhead
+
+**Core Dump** – A snapshot of a program's memory when it crashes, used for debugging
+
+**Deadlock** – When processes wait on each other's resources indefinitely, preventing progress
+
+**InnoDB** – MySQL's default storage engine supporting transactions and row-level locking
+
+**Inode** – Filesystem metadata structure; you can run out of inodes even with disk space available
+
+**JWT (JSON Web Token)** – Stateless authentication token with embedded timestamps
+
+**Load Average** – Number of processes running or waiting; values above CPU core count indicate overload
+
+**Memory Leak** – When a process allocates memory but never releases it
+
+**OOM Killer** – Linux kernel mechanism that forcefully terminates processes when RAM is exhausted
+
+**P95/P99 Latency** – The latency threshold below which 95%/99% of requests fall (tail latency)
+
+**TTL (Time To Live)** – Duration before a cache entry or DNS record expires
+
+**%wa (I/O Wait)** – CPU time spent waiting for disk I/O; high values (≥10%) indicate disk bottlenecks
+
+### Critical Command Reference
+
+```bash
+# Memory & Process Analysis
+free -m                    # Memory usage in MB
+top                        # Real-time process monitor (M=sort by memory, P=CPU)
+ps aux --sort=-%mem        # List processes by memory usage
+dmesg | grep -i oom        # Check for out-of-memory events
+
+# Disk & I/O
+df -h                      # Disk usage (human-readable)
+df -i                      # Inode usage
+du -x -m /path | sort -n   # Find largest directories
+iostat -x 1 5              # I/O statistics
+
+# System Performance
+uptime                    # Load averages
+vmstat 1 5                # Virtual memory statistics
+lsof +D /path             # List open files in directory
+
+# Network & Services
+curl -I http://host/health # Check HTTP health endpoint
+systemctl status service   # Check service status
+journalctl -u service      # View service logs
+
+# Database (MySQL)
+mysql -e "SHOW PROCESSLIST"           # Active connections
+mysql -e "SHOW ENGINE INNODB STATUS"  # InnoDB internals
+```
+
+---
+
+## Conclusion: Building Your Production Intuition
+
+Production engineering is equal parts knowledge, intuition, and systematic thinking.
+The incidents you respond to today build the pattern recognition that will make you faster tomorrow.
+
+These commands are tools, but knowing when to use them comes from experience.
+The key is developing a methodology: start broad, narrow down based on what you find, and always verify your hypotheses.
+
+Keep this guide handy. Bookmark it, print it, adapt it to your environment.
+Most importantly, when you discover a new technique that saves you during an incident, add it to your own collection.
+The best debugging toolkit is the one you build yourself, refined through many late-night incidents and triumphant resolutions.
 
 Stay curious, stay systematic, and may your production systems remain stable.
