@@ -485,8 +485,6 @@ nsenter -t <PID> -m
 
 **Deadlock** – When processes wait on each other's resources indefinitely, preventing progress
 
-**InnoDB** – MySQL's default storage engine supporting transactions and row-level locking
-
 **Inode** – Filesystem metadata structure; you can run out of inodes even with disk space available
 
 **JWT (JSON Web Token)** – Stateless authentication token with embedded timestamps
@@ -527,10 +525,6 @@ lsof +D /path             # List open files in directory
 curl -I http://host/health # Check HTTP health endpoint
 systemctl status service   # Check service status
 journalctl -u service      # View service logs
-
-# Database (MySQL)
-mysql -e "SHOW PROCESSLIST"           # Active connections
-mysql -e "SHOW ENGINE INNODB STATUS"  # InnoDB internals
 ```
 
 ---
