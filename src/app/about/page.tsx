@@ -27,10 +27,7 @@ export default function AboutPage() {
           <Link href="https://point72.com/" target="_blank" rel="noopener noreferrer">
             Point72
           </Link>
-          , where I build automated solutions to difficult infrastructure problems.
-        </p>
-        <p>
-          When I'm not writing{" "}
+          , where I build automated solutions to difficult infrastructure problems. When I'm not writing{" "}
           <Link href={siteConfig.socials.github} target="_blank" rel="noopener noreferrer">
             code
           </Link>
