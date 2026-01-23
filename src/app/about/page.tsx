@@ -17,17 +17,17 @@ export default function AboutPage() {
 
       <div className="prose prose-lg animate-fade-in-delay-1 mb-12 max-w-none">
         <p>
-          Howdy! I&apos;m {siteConfig.name}. Thanks for stopping by. This site is equal parts notebook, photo gallery, and experiment — a place where
+          Howdy! I&apos;m {siteConfig.name}. Thanks for stopping by. This site is equal parts notebook, photo gallery, and experiment: a place where
           I collect and share some of the things I care deeply about.
         </p>
 
         <h2>What I Do</h2>
         <p>
-          By day, I&apos;m a software engineer at{" "}
+          Professionally, I&apos;m  a software engineer at{" "}
           <Link href="https://point72.com/" target="_blank" rel="noopener noreferrer">
             Point72
           </Link>
-          . Outside of work, I spend my time <Link href="/blog">writing</Link>, taking <Link href="/photography">photos</Link> of places and moments I
+          . Outside of that, I spend my time <Link href="/blog">writing</Link>, taking <Link href="/photography">photos</Link> of places and moments I
           don&apos;t want to forget, and producing{" "}
           <Link href={siteConfig.socials.soundcloud} target="_blank" rel="noopener noreferrer">
             electronic music
@@ -39,7 +39,7 @@ export default function AboutPage() {
             rel="noopener noreferrer"
             className="text-accent hover:text-accent-hover transition-colors"
           >
-            view my resume
+            view my résumé
           </a>{" "}
           if you want to see my professional background.
         </p>
