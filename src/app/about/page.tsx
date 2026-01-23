@@ -30,13 +30,14 @@ export default function AboutPage() {
           , where I build automated solutions to difficult infrastructure problems.
         </p>
         <p>
-          When I'm not writing code, I'm usually <Link href="/blog">writing</Link>,{" "}
-          taking <Link href="/photography">photos</Link> of places I don't want to forget,{" "}
-          or producing{" "}
+          When I'm not writing{" "}
+          <Link href={siteConfig.socials.github} target="_blank" rel="noopener noreferrer">
+            code
+          </Link>
+          , I'm usually <Link href="/blog">writing words</Link>, taking <Link href="/photography">photos</Link> of places I don't want to forget, or producing{" "}
           <Link href={siteConfig.socials.soundcloud} target="_blank" rel="noopener noreferrer">
             electronic music
-          </Link>
-          {" "} barely listenable to occasionally decent.
+          </Link> that ranges from barely listenable to occasionally decent.
         </p>
         <p className="text-sm text-muted">
           <a href={siteConfig.documents.resume} target="_blank" rel="noopener noreferrer">
