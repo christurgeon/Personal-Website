@@ -23,27 +23,27 @@ export default function AboutPage() {
 
         <h2>What I Do</h2>
         <p>
-          Professionally, I&apos;m  a software engineer at{" "}
+          I'm a software engineer at{" "}
           <Link href="https://point72.com/" target="_blank" rel="noopener noreferrer">
             Point72
           </Link>
-          . Outside of that, I spend my time <Link href="/blog">writing</Link>, taking <Link href="/photography">photos</Link> of places and moments I
-          don&apos;t want to forget, and producing{" "}
+          , where I build automated solutions to difficult infrastructure problems.
+        </p>
+        <p>
+          When I'm not writing code, I'm usually <Link href="/blog">writing</Link>,{" "}
+          taking <Link href="/photography">photos</Link> of places I don't want to forget,{" "}
+          or producing{" "}
           <Link href={siteConfig.socials.soundcloud} target="_blank" rel="noopener noreferrer">
             electronic music
-          </Link>{" "}
-          that ranges from barely listenable to occasionally decent. You can also{" "}
-          <a
-            href={siteConfig.documents.resume}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-accent hover:text-accent-hover transition-colors"
-          >
-            view my résumé
-          </a>{" "}
-          if you want to see my professional background.
+          </Link>
+          {" "} barely listenable to occasionally decent.
         </p>
-
+        <p className="text-sm text-muted">
+          <a href={siteConfig.documents.resume} target="_blank" rel="noopener noreferrer">
+            View my résumé →
+          </a>
+        </p>
+        
         <h2>Get in Touch</h2>
         <p>
           I&apos;m always interested in hearing from new people. Whether you have a question, want to collaborate, or just want to say hi, feel free
