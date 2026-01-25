@@ -7,7 +7,7 @@ tags: ["linux", "debugging", "production-engineering", "system-administration", 
 
 Over the years of responding to production incidents and performance issues,
 I've accumulated a collection of commands and techniques that have proven invaluable when things go sideways.
-This isn't meant to be an exhaustive reference — think of it more as a field guide compiled from real battles in the trenches of production systems.
+This isn't meant to be an exhaustive reference. Think of it more as a field guide compiled from battles in the trenches of production systems.
 
 ## When You First Land on a Troubled Server
 
@@ -44,8 +44,6 @@ If you need to switch users or elevate privileges:
 
 ```bash
 sudo -i                 # become root with root's environment
-sudo -u postgres psql   # run a command as a different user
-su - appuser            # switch to another user account
 ```
 
 ### Figure Out What's Running
@@ -67,6 +65,26 @@ For a hierarchical view, `pstree` can be illuminating:
 pstree -ap
 ```
 
+Example output:
+
+```
+systemd(1) --system
+  ├─sshd(742) -D
+  │   └─sshd(1331) -D
+  │       └─bash(1340)
+  │           ├─vim(1402) /etc/ssh/sshd_config
+  │           ├─python3(1455) script.py --input data.csv
+  │           └─pstree(1499) -ap
+  ├─cron(601)
+  ├─dbus-daemon(512) --system --address=systemd: --nofork --nopidfile
+  ├─nginx(812) -g daemon off;
+  │   ├─nginx(813) -g daemon off;
+  │   └─nginx(814) -g daemon off;
+  └─docker-containerd(900) --config /etc/docker/containerd/config.toml
+      └─containerd-shim(921) -namespace moby -id abc123
+          └─python(950) app.py --port 8080
+```
+
 This shows parent-child relationships between processes. You might see something like a supervisor process managing multiple workers,
 which immediately tells you about the application architecture.
 
@@ -82,7 +100,7 @@ And see what's listening on the network:
 ss -lntp
 ```
 
-That last command often reveals the primary application — if you see Java listening on port 8080 or Python on 5000, you've found your app.
+That last command often reveals the primary application: if you see Java listening on port 8080 or Python on 5000, you've probably found your app.
 
 ## Understanding CPU Pressure
 
@@ -96,7 +114,7 @@ $ uptime
 Those three numbers (1-minute, 5-minute, and 15-minute averages) tell a story. If they're increasing, your problem is getting worse.
 If they're decreasing, you might have already missed the peak of the incident.
 
-Next, I run `vmstat` with a one-second interval to watch system-wide CPU utilization:
+Next, I might run `vmstat` with a one-second interval to watch system-wide CPU utilization:
 
 ```bash
 vmstat 1
@@ -130,7 +148,7 @@ nc -4zv target-host.example.com 2049
 nc -6zv target-host.example.com 2049
 ```
 
-When you need to see all active connections, `ss` has replaced the older `netstat`:
+When you need to see all active connections, `ss` is preferred to the older `netstat`:
 
 ```bash
 ss -tulnp
@@ -198,7 +216,7 @@ But `df` is just an estimate. For accurate numbers, use `du`:
 du -sh /var/*
 ```
 
-A classic scenario: you get an error about `/var` being full. Run `df` to confirm, then use `du` to drill down through subdirectories and find the culprit — often it's log files that weren't rotated properly.
+A classic scenario: you get an error about `/var` being full. Run `df` to confirm, then use `du` to drill down through subdirectories and find the culprit. For this particular case, maybe log files weren't rotated properly or accumulated too fast.
 
 Understanding the difference between symbolic and hard links can save you from mistakes.
 Symbolic links point to filenames and can cross filesystem boundaries:
