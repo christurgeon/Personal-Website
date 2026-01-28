@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { siteConfig } from "@/lib/config";
-import { ArrowRightIcon, GitHubIcon, GoodreadsIcon, LinkedInIcon, SoundCloudIcon, ResumeIcon } from "@/components/Icons";
+import { ArrowRightIcon, GitHubIcon, GoodreadsIcon, LinkedInIcon, SoundCloudIcon } from "@/components/Icons";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -35,11 +35,6 @@ export default function AboutPage() {
           <Link href={siteConfig.socials.soundcloud} target="_blank" rel="noopener noreferrer">
             electronic music
           </Link> that ranges from barely listenable to occasionally decent.
-        </p>
-        <p className="text-sm text-muted">
-          <a href={siteConfig.documents.resume} target="_blank" rel="noopener noreferrer">
-            View my résumé →
-          </a>
         </p>
         
         <h2>Get in Touch</h2>
