@@ -343,6 +343,55 @@ ip6tables -S
 
 ---
 
+## Scenario: Out-Of-Memory (OOM)
+
+**Cheat-line:** Check logs for OOM → Restart service → Temporarily add swap → Increase memory limits → Escalate
+
+**What's happening:** Your server has exhausted all available RAM, forcing Linux's OOM killer to terminate processes. Critical services may crash or enter a restart loop.
+
+**Red Flags:**
+- Sudden service crash without application errors
+- Kernel logs showing "Out of memory" or "Killed process" messages
+- Services repeatedly restarting
+
+**Quick Confirm:**
+```bash
+dmesg | grep -i "out of memory"
+journalctl -k | grep -i "oom"
+free -m  # shows memory in MB
+top      # press M to sort by memory usage
+```
+
+**Immediate Mitigation:**
+```bash
+# Restart affected service
+sudo systemctl restart <service-name>
+
+# Add temporary swap (fast local SSD only)
+sudo fallocate -l 2G /swapfile
+sudo chmod 600 /swapfile
+sudo mkswap /swapfile
+sudo swapon /swapfile
+```
+
+You may need to consider rolling back the pipeline and deploying a previous version of the code if you suspect it's a recent deployment that is faulty.
+
+**Warning:** Creating swap may hide underlying memory leaks. Remove it as soon as possible:
+```bash
+sudo swapoff /swapfile && sudo rm /swapfile
+```
+
+**Long-Term Fix:**
+- Diagnose memory leaks by sharing memory graphs with developers
+- For C++: provide core dumps for analysis with gdb/Valgrind
+- For Python: use `tracemalloc` in test environments
+- Implement cache size limits and TTL settings
+- Configure proper memory limits in container orchestration
+
+**Beginner Tip:** If you see "OOM" in kernel logs, restart the killed process and monitor with `top` to check if memory consumption climbs again.
+
+---
+
 ## Scenario: Detecting Memory Leaks
 
 Memory leaks occur when programs continuously allocate memory without releasing it, eventually consuming all available RAM.
@@ -395,7 +444,7 @@ for stat in top_stats[:10]:
     print(stat)
 ```
 
-**Production Heap Profiling:**
+**Heap Profiling:**
 - Use `gperftools` (tcmalloc) for live heap profiling
 - Use `jemalloc` for heap introspection and runtime stats
 
@@ -547,9 +596,9 @@ journalctl -u service      # View service logs
 
 ---
 
-## Conclusion: Building Your Production Intuition
+## Conclusion: Building Your Intuition
 
-Production engineering is equal parts knowledge, intuition, and systematic thinking.
+Operating production systems requires equal parts knowledge, intuition, and systematic thinking.
 The incidents you respond to today build the pattern recognition that will make you faster tomorrow.
 
 These commands are tools, but knowing when to use them comes from experience.
