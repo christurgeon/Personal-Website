@@ -119,6 +119,17 @@ export const siteConfig = {
 ![Alt text](/images/blog/my-image.jpg)
 ```
 
+### Google Analytics
+
+The site supports Google Analytics via an environment variable. To enable:
+
+1. Get a Measurement ID from [Google Analytics](https://analytics.google.com) (starts with `G-`)
+2. Set the environment variable:
+   - **Vercel**: Add `NEXT_PUBLIC_GA_MEASUREMENT_ID` in Project Settings → Environment Variables
+   - **Local**: Create a `.env.local` file with `NEXT_PUBLIC_GA_MEASUREMENT_ID=G-XXXXXXXXXX`
+
+Analytics only loads when the environment variable is set.
+
 ## Scripts
 
 ```bash

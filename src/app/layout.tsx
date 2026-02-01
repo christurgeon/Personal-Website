@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Crimson_Pro, Source_Sans_3 } from "next/font/google";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { ThemeProvider } from "@/components/ThemeProvider";
@@ -60,6 +61,7 @@ export default function RootLayout({
           <Footer />
         </ThemeProvider>
       </body>
+      {process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID && <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID} />}
     </html>
   );
 }
