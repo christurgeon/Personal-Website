@@ -424,6 +424,14 @@ export const photoCategories: PhotoCategory[] = [
       },
       {
         id: "pg-4",
+        src: "/images/photography/patagonia/huemul-1.jpg",
+        alt: "Hikers Walking in the Huemul Circuit to a Glacier",
+        width: 1638,
+        height: 2048,
+        location: "Huemul Circuit",
+      },
+      {
+        id: "pg-5",
         src: "/images/photography/patagonia/penguin-2.jpg",
         alt: "Penguins in Martillo Island, Ushuaia, Argentina",
         width: 1638,
