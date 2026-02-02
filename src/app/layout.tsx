@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     default: siteConfig.title,
     template: `%s | ${siteConfig.name}`,
   },
-  description: siteConfig.description,
+  description: siteConfig.metaDescription,
   icons: {
     icon: [
       { url: "/favicons/favicon-16x16.png", sizes: "16x16", type: "image/png" },
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
   manifest: "/favicons/site.webmanifest",
   openGraph: {
     title: siteConfig.title,
-    description: siteConfig.description,
+    description: siteConfig.metaDescription,
     url: siteConfig.url,
     siteName: siteConfig.name,
     locale: "en_US",

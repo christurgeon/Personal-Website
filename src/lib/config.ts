@@ -2,7 +2,9 @@ export const siteConfig = {
   name: "Chris Turgeon",
   title: "Home",
   description:
-    "By day, I’m a software engineer at Point72. By night (and on weekends), I’m traveling, photographing whatever catches my eye, reading, hacking on personal projects, and occasionally producing barely-listenable electronic music.",
+    "By day, I'm a software engineer at Point72. By night (and on weekends), I'm traveling, photographing whatever catches my eye, reading, hacking on personal projects, and occasionally producing barely-listenable electronic music.",
+  metaDescription:
+    "Chris Turgeon's personal website. Blog posts on software, travel, and life — plus a photography gallery from around the world.",
   linksPageDescription: "A few places I leave footprints. Check out my projects here.",
   url: "https://christurgeon.com",
 
