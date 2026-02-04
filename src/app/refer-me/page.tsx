@@ -42,6 +42,8 @@ export default function ReferMePage() {
             <ul>
               <li>The specific role(s) you&apos;re interested in (job title and/or link)</li>
               <li>Your resume (PDF preferred)</li>
+              <li>Your phone number</li>
+              <li>Your email address</li>
               <li>A brief note about why you&apos;re excited about the role</li>
             </ul>
           </li>
@@ -49,16 +51,12 @@ export default function ReferMePage() {
             <strong>I&apos;ll submit the referral</strong> — Once I have your info, I&apos;ll submit
             the referral through our internal system.
           </li>
-          <li>
-            <strong>Apply online</strong> — You should also apply directly through the careers page
-            to ensure your application is in the system.
-          </li>
         </ol>
 
         <h2>A Few Notes</h2>
         <ul>
           <li>
-            I&apos;m happy to refer anyone, but a referral is not a guarantee of an interview or
+            I&apos;m happy to refer anyone who meets the criteria for the role, but a referral is not a guarantee of an interview or
             offer — it simply helps get your resume in front of the right people.
           </li>
           <li>
