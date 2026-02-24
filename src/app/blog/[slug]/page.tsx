@@ -4,6 +4,7 @@ import Link from "next/link";
 import { format } from "date-fns";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import rehypeSlug from "rehype-slug";
+import { mdxComponents } from "@/components/mdx";
 import { getPostBySlug, getAllPosts } from "@/lib/blog";
 import { CalendarIcon, ClockIcon, ArrowRightIcon } from "@/components/Icons";
 import type { Metadata } from "next";
@@ -89,7 +90,7 @@ export default async function PostPage({ params }: PostPageProps) {
       )}
 
       <div className="prose prose-lg animate-fade-in-delay-2 max-w-none">
-        <MDXRemote source={post.content} options={{ mdxOptions: { rehypePlugins: [rehypeSlug] } }} />
+        <MDXRemote source={post.content} options={{ mdxOptions: { rehypePlugins: [rehypeSlug] } }} components={mdxComponents} />
       </div>
     </article>
   );
