@@ -1,40 +1,34 @@
 const steps = [
   {
     number: 1,
-    title: "Find your losing positions",
-    description: "Review your portfolio for investments trading below your purchase price.",
-    color: "#ef4444",
-  },
-  {
-    number: 2,
-    title: "Sell to realize the losses",
-    description: "Selling locks in the loss on paper, which the IRS lets you use as a deduction.",
-    color: "#f59e0b",
-  },
-  {
-    number: 3,
-    title: "Offset your gains",
-    description:
-      "Your realized losses cancel out capital gains from winning trades, reducing your tax bill.",
+    title: "Contribute $7,000 to a Traditional IRA",
+    description: "This contribution is non-deductible since your income exceeds the limit.",
     color: "#3b82f6",
   },
   {
-    number: 4,
-    title: "Deduct up to $3K from income",
+    number: 2,
+    title: "Convert the Traditional IRA to a Roth IRA",
     description:
-      "If losses exceed gains, deduct up to $3,000 against ordinary income. The rest carries forward to future years.",
+      "Move the funds into your Roth account. Since you already paid taxes on the contribution, there's little to no tax owed on conversion.",
     color: "#8b5cf6",
   },
   {
-    number: 5,
-    title: "Reinvest in a similar fund",
+    number: 3,
+    title: "Report the conversion on Form 8606",
     description:
-      "Buy a similar (but not identical) fund to stay invested. This keeps your portfolio allocation on track while avoiding the wash-sale rule.",
+      "This tells the IRS the contribution was non-deductible, so you don't get taxed twice.",
+    color: "#f59e0b",
+  },
+  {
+    number: 4,
+    title: "Enjoy tax-free growth forever",
+    description:
+      "Once in the Roth, your money grows and can be withdrawn in retirement completely tax-free.",
     color: "#10b981",
   },
 ];
 
-export default function PseudoCode() {
+export default function BackdoorRothSteps() {
   return (
     <div
       className="not-prose"
@@ -58,7 +52,7 @@ export default function PseudoCode() {
           marginBottom: "1.25rem",
         }}
       >
-        How Tax-Loss Harvesting Works
+        The Backdoor Roth Process
       </div>
       <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
         {steps.map((step) => (

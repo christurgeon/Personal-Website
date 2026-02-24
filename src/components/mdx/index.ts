@@ -1,3 +1,4 @@
+import BackdoorRothSteps from "./BackdoorRothSteps";
 import ContributionStack from "./ContributionStack";
 import ComparisonCards from "./ComparisonCards";
 import TripleTaxAdvantage from "./TripleTaxAdvantage";
@@ -9,6 +10,7 @@ import MoneyFlow from "./MoneyFlow";
 import SummaryBox from "./SummaryBox";
 
 export const mdxComponents = {
+  BackdoorRothSteps,
   ContributionStack,
   ComparisonCards,
   TripleTaxAdvantage,
