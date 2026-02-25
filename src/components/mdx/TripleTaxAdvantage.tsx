@@ -7,29 +7,14 @@ const advantages = [
 export default function TripleTaxAdvantage() {
   return (
     <>
-      <div
-        className="not-prose"
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          gap: "0.5rem",
-          margin: "2rem 0",
-          flexWrap: "wrap",
-        }}
-      >
+      <div className="not-prose flex flex-col sm:flex-row justify-center items-stretch gap-3 my-8">
         {advantages.map((item, i) => (
           <div
             key={i}
+            className="flex flex-col items-center text-center px-5 py-4 rounded-xl min-w-0 sm:min-w-[160px]"
             style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              textAlign: "center",
-              padding: "1.25rem 1.5rem",
-              borderRadius: "12px",
               border: `2px solid ${item.color}`,
               background: `${item.color}10`,
-              minWidth: "160px",
             }}
           >
             <span style={{ fontSize: "2rem", marginBottom: "0.5rem" }}>{item.emoji}</span>
@@ -37,7 +22,7 @@ export default function TripleTaxAdvantage() {
           </div>
         ))}
       </div>
-      <div className="not-prose" style={{ textAlign: "center", fontSize: "0.8rem", color: "#64748b", marginTop: "-1rem", marginBottom: "1.5rem" }}>
+      <div className="not-prose text-center text-xs text-slate-500 -mt-4 mb-6">
         *For qualified medical expenses. After age 65, non-medical withdrawals are taxed as ordinary income (like a Traditional IRA) but with no penalty.
       </div>
     </>

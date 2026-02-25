@@ -7,15 +7,7 @@ const tips = [
 
 export default function TipGrid() {
   return (
-    <div
-      className="not-prose"
-      style={{
-        display: "grid",
-        gridTemplateColumns: "repeat(2, 1fr)",
-        gap: "1rem",
-        margin: "1.5rem 0",
-      }}
-    >
+    <div className="not-prose grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 my-6">
       {tips.map((item, i) => (
         <div
           key={i}

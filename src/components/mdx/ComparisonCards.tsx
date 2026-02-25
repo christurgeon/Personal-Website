@@ -57,14 +57,14 @@ function CardColumn({ side }: { side: CardSide }) {
         background: `linear-gradient(to bottom, ${side.color}14, ${side.color}05)`,
         border: `1px solid ${side.color}33`,
         borderRadius: "12px",
-        padding: "1.5rem",
+        padding: "1.25rem",
       }}
     >
       <div style={{ fontSize: "0.7rem", textTransform: "uppercase", letterSpacing: "0.08em", color: side.color, fontWeight: 600, marginBottom: "0.5rem" }}>
         {side.title}
       </div>
-      <div style={{ fontSize: "1.1rem", fontWeight: 700, marginBottom: "0.75rem" }}>{side.subtitle}</div>
-      <ul style={{ fontSize: "0.9rem", lineHeight: 1.7, paddingLeft: "1.2rem", margin: 0 }}>
+      <div className="text-base sm:text-lg font-bold mb-3">{side.subtitle}</div>
+      <ul className="text-sm leading-relaxed pl-4 m-0">
         {side.items.map((item, i) => (
           <li key={i} dangerouslySetInnerHTML={{ __html: item }} />
         ))}
@@ -77,15 +77,7 @@ export default function ComparisonCards({ variant }: { variant: string }) {
   const data = variants[variant];
   if (!data) return null;
   return (
-    <div
-      className="not-prose"
-      style={{
-        display: "grid",
-        gridTemplateColumns: "1fr 1fr",
-        gap: "1rem",
-        margin: "1.5rem 0",
-      }}
-    >
+    <div className="not-prose grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 my-6">
       <CardColumn side={data.left} />
       <CardColumn side={data.right} />
     </div>
