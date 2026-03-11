@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Referrals",
   description: `Services and products ${siteConfig.name} personally uses and recommends`,
+  alternates: { canonical: "/referrals" },
 };
 
 interface Referral {

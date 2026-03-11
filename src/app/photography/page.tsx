@@ -7,6 +7,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Photography",
   description: "A collection of photographs from travels around the world.",
+  alternates: { canonical: "/photography" },
 };
 
 export default function PhotographyPage() {

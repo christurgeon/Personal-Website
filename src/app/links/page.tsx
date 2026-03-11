@@ -19,6 +19,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Links",
   description: `All of ${siteConfig.name}'s links in one place - blog, photos, music, social profiles, and more.`,
+  alternates: { canonical: "/links" },
 };
 
 const sections = [

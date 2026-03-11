@@ -6,6 +6,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Blog",
   description: `Where ${siteConfig.name} writes about whatever is on his mind - blog posts about life, technology, science, travel, and things he's learned along the way.`,
+  alternates: { canonical: "/blog" },
 };
 
 export default function BlogPage() {
