@@ -6,6 +6,7 @@ import { MDXRemote } from "next-mdx-remote/rsc";
 import rehypeSlug from "rehype-slug";
 import { mdxComponents } from "@/components/mdx";
 import { getPostBySlug, getAllPosts } from "@/lib/blog";
+import { siteConfig } from "@/lib/config";
 import { CalendarIcon, ClockIcon, ArrowRightIcon } from "@/components/Icons";
 import type { Metadata } from "next";
 
@@ -51,8 +52,24 @@ export default async function PostPage({ params }: PostPageProps) {
     notFound();
   }
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: post.title,
+    description: post.excerpt,
+    datePublished: post.date,
+    author: {
+      "@type": "Person",
+      name: siteConfig.name,
+      url: siteConfig.url,
+    },
+    ...(post.coverImage && { image: `${siteConfig.url}${post.coverImage}` }),
+  };
+
   return (
-    <article className="mx-auto max-w-3xl px-6 py-16">
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <article className="mx-auto max-w-3xl px-6 py-16">
       <header className="animate-fade-in mb-12">
         <Link href="/blog" className="text-muted hover:text-accent mb-8 inline-flex items-center gap-1 text-sm transition-colors">
           <ArrowRightIcon className="h-4 w-4 rotate-180" />
@@ -93,5 +110,6 @@ export default async function PostPage({ params }: PostPageProps) {
         <MDXRemote source={post.content} options={{ mdxOptions: { rehypePlugins: [rehypeSlug] } }} components={mdxComponents} />
       </div>
     </article>
+    </>
   );
 }
