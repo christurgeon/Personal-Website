@@ -1,5 +1,5 @@
 import { siteConfig } from "@/lib/config";
-import { GitHubIcon, LinkedInIcon, GoodreadsIcon, SoundCloudIcon } from "./Icons";
+import { GitHubIcon, LinkedInIcon, XTwitterIcon, GoodreadsIcon, SoundCloudIcon } from "./Icons";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -51,6 +51,17 @@ export function Footer() {
                 aria-label="SoundCloud"
               >
                 <SoundCloudIcon className="h-5 w-5" />
+              </a>
+            )}
+            {siteConfig.socials.x && (
+              <a
+                href={siteConfig.socials.x}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted hover:text-accent transition-colors"
+                aria-label="X"
+              >
+                <XTwitterIcon className="h-5 w-5" />
               </a>
             )}
           </div>

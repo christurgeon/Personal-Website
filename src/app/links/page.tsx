@@ -6,6 +6,7 @@ import {
   LinkedInIcon,
   GoodreadsIcon,
   SoundCloudIcon,
+  XTwitterIcon,
   ResumeIcon,
   ArrowRightIcon,
   PencilIcon,
@@ -80,6 +81,12 @@ const sections = [
         name: "SoundCloud",
         href: siteConfig.socials.soundcloud,
         icon: SoundCloudIcon,
+        external: true,
+      },
+      {
+        name: "X",
+        href: siteConfig.socials.x,
+        icon: XTwitterIcon,
         external: true,
       },
       {
