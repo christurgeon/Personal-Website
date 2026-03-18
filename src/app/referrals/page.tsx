@@ -62,6 +62,12 @@ const categories: Category[] = [
         href: "https://www.schwab.com/client-referral?refrid=REFEREUE4TERM",
       },
       {
+        name: "Kalshi",
+        description: "A prediction market where you can trade on the outcome of real-world events",
+        bonus: "Sign up and we'll both get $25",
+        href: "https://kalshi.com/sign-up/?referral=b758c4ef-2bc7-438b-ac4a-564f1ae0b567&m=true",
+      },
+      {
         name: "SoFi",
         description: "An online bank that offers checking and savings accounts with no account fees or minimum balance requirements",
         bonus:
