@@ -19,12 +19,12 @@ export const projects: Project[] = [
     featured: true,
   },
   {
-    name: "Lockbox",
+    name: "IronLock",
     description:
       "Secure file encryption CLI using Argon2id and ChaCha20-Poly1305.",
     language: "Rust",
     tags: ["CLI", "Cryptography", "Security"],
-    github: "https://github.com/christurgeon/lockbox",
+    github: "https://github.com/christurgeon/ironlock",
   },
   {
     name: "GrooveFactory",
