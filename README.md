@@ -41,7 +41,7 @@ eval "$(mise activate bash)"  # for bash
 1. **Clone the repository**
 
    ```bash
-   git clone https://github.com/christurgeon/Personal-Website.git personal-website
+   git clone https://github.com/christurgeon/personal-website.git personal-website
    cd personal-website
    ```
 
