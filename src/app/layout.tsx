@@ -4,6 +4,7 @@ import { GoogleAnalytics } from "@next/third-parties/google";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { ReadingProgressBar } from "@/components/ReadingProgressBar";
 import { siteConfig } from "@/lib/config";
 import "./globals.css";
 
@@ -44,6 +45,7 @@ export const metadata: Metadata = {
     siteName: siteConfig.name,
     locale: "en_US",
     type: "website",
+    images: [{ url: "/images/profile.jpg", alt: siteConfig.name }],
   },
   twitter: {
     card: "summary_large_image",
@@ -79,6 +81,7 @@ export default function RootLayout({
       <body className="flex min-h-screen flex-col antialiased">
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }} />
         <ThemeProvider>
+          <ReadingProgressBar />
           <Header />
           <main className="flex-1">{children}</main>
           <Footer />

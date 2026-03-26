@@ -7,6 +7,7 @@ import rehypeSlug from "rehype-slug";
 import { mdxComponents } from "@/components/mdx";
 import { getPostBySlug, getAllPosts } from "@/lib/blog";
 import { siteConfig } from "@/lib/config";
+import { ShareButtons } from "@/components/ShareButtons";
 import { CalendarIcon, ClockIcon, ArrowRightIcon } from "@/components/Icons";
 import type { Metadata } from "next";
 
@@ -40,7 +41,7 @@ export async function generateMetadata({ params }: PostPageProps): Promise<Metad
       description: post.excerpt,
       type: "article",
       publishedTime: post.date,
-      images: post.coverImage ? [post.coverImage] : [],
+      images: post.coverImage ? [post.coverImage] : ["/images/profile.jpg"],
     },
   };
 }
@@ -110,6 +111,8 @@ export default async function PostPage({ params }: PostPageProps) {
       <div className="prose prose-lg animate-fade-in-delay-2 max-w-none">
         <MDXRemote source={post.content} options={{ mdxOptions: { rehypePlugins: [rehypeSlug] } }} components={mdxComponents} />
       </div>
+
+      <ShareButtons title={post.title} slug={slug} />
     </article>
     </>
   );

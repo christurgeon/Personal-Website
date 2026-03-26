@@ -2,8 +2,17 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import readingTime from "reading-time";
+import { z } from "zod";
 
 const postsDirectory = path.join(process.cwd(), "content/posts");
+
+const frontmatterSchema = z.object({
+  title: z.string(),
+  date: z.string().date(),
+  excerpt: z.string(),
+  coverImage: z.string().optional(),
+  tags: z.array(z.string()).optional(),
+});
 
 export interface PostMeta {
   slug: string;
@@ -36,15 +45,13 @@ export function getPostBySlug(slug: string): Post | null {
 
   const fileContents = fs.readFileSync(fullPath, "utf8");
   const { data, content } = matter(fileContents);
+  const parsed = frontmatterSchema.parse(data);
   const stats = readingTime(content);
 
   return {
     slug: realSlug,
-    title: data.title || "Untitled",
-    date: data.date || new Date().toISOString(),
-    excerpt: data.excerpt || "",
-    coverImage: data.coverImage,
-    tags: data.tags || [],
+    ...parsed,
+    tags: parsed.tags ?? [],
     readingTime: stats.text,
     content,
   };
