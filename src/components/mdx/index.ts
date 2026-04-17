@@ -8,6 +8,7 @@ import WashSaleTimeline from "./WashSaleTimeline";
 import TipGrid from "./TipGrid";
 import MoneyFlow from "./MoneyFlow";
 import SummaryBox from "./SummaryBox";
+import AgentWorkflowLoop from "./AgentWorkflowLoop";
 
 export const mdxComponents = {
   BackdoorRothSteps,
@@ -20,4 +21,5 @@ export const mdxComponents = {
   TipGrid,
   MoneyFlow,
   SummaryBox,
+  AgentWorkflowLoop,
 };

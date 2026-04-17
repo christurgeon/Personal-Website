@@ -1,0 +1,155 @@
+---
+title: "Vibe Coding with Guardrails: My Workflow for Shipping with AI Agents"
+date: "2026-04-17"
+excerpt: "A practical workflow for coding with AI agents — research first, invite pushback, plan with a second opinion, and run periodic scans — built to catch the failure modes that pure 'vibe coding' misses."
+tags: ["ai", "claude-code", "agentic-coding", "engineering", "workflow", "productivity", "tooling"]
+---
+
+I've shipped plenty of code with an AI agent riding shotgun. Some of it was great. Some of it I caught during review and quietly deleted. Enough of it broke in ways I didn't expect that I stopped treating "vibe coding" as a workflow and started treating it as a default that needs scaffolding around it.
+
+The term came out of a half-joking post by Andrej Karpathy — the idea being that you let the LLM drive and barely read the code. For throwaway scripts and weekend projects, that's fine. But the second the code is going to live somewhere, be read by someone else, or touch a system I care about, I need guardrails.
+
+What follows is the workflow I've landed on. It's not about being cautious — I'm still moving fast. It's about stacking cheap checks so the agent's failure modes get caught early, while the thing is still easy to fix.
+
+---
+
+## The Problem with Pure Vibe
+
+Left to its own devices, an agent will happily produce plausible-looking code that solves the wrong problem, introduces a subtle bug in an edge case, imports a package that doesn't exist, or silently breaks a contract the rest of the codebase depends on. The code *looks* right. It compiles. The tests — which the agent also wrote — pass.
+
+The mental model I've found most useful: treat the agent like a very fast, well-read junior engineer with infinite energy and no memory of yesterday. They can write code all day. They do not know your codebase, and they do not know which details matter. Your job is to supply that context and verify the output. Everything below is a way of doing that cheaply — and the lack of memory, which is a liability when you're implementing, turns out to be an asset when you're reviewing.
+
+<Callout type="warning" title="The Failure Mode to Watch">
+  The dangerous output isn't the code that breaks loudly. It's the code that works in the happy path but silently violates an invariant you didn't think to mention. If you're not reading the diff, you need *something* reading it.
+</Callout>
+
+---
+
+## Step 1: Research Before You Prompt
+
+Vague context in, vague code out. The quality of the prompt determines the quality of the output, and most of my prompt quality comes from work I do before opening the agent at all.
+
+Before I kick off a task, I spend five to fifteen minutes getting oriented. What does the existing code look like? What are the conventions? Where does this new piece slot in? I'll also skim the docs for whatever library I'm about to use, check recent issues in the repo, read a similar PR if one exists.
+
+When I write the prompt, I include the constraints I've surfaced: *here's the pattern we use for X, here's the edge case I'm worried about, here's the library version we're on, here's the function this needs to integrate with.*
+
+The agent can't read your mind, and it can't smell which details matter. You have to tell it.
+
+---
+
+## Step 2: Invite the Pushback
+
+This is the step that changed everything for me.
+
+Before I ask the agent to build the thing, I ask it to argue against it. Literally: *here's what I'm planning. What are the risks? What would a senior engineer push back on? Is there a simpler approach I'm missing? What am I not thinking about?*
+
+Often enough to be worth the thirty seconds, it surfaces something real — a library that already does what I'm about to write, a race condition in the design, a schema decision that'll hurt us in six months, a simpler path I hadn't considered. When it doesn't surface anything real, I'm out thirty seconds.
+
+It's a pre-mortem with a consultant who works for free and never gets tired.
+
+The key is to actually *consider* the pushback instead of defensively justifying your original plan. If the agent's critique is weak, fine, move on. If it's pointing at something you'd glossed over, slow down and fix the design before a single line of code exists.
+
+---
+
+## Step 3: Plan Mode, With a Second Opinion
+
+Once I've digested the pushback and refined the approach, I have the agent enter plan mode. Claude Code has this built in — it produces a structured plan without touching any files.
+
+Then I take that plan to a *second* agent. Different context window, often a different prompt framing. "Review this plan. What's wrong with it? What's missing? Where would this fail?"
+
+The two agents often disagree. Agent A insists the right pattern is a factory; agent B argues that's over-engineered and suggests a direct approach. When that happens, I either ask them to debate each other or just make the call myself based on what I know about the codebase.
+
+The magic isn't that either agent is right. It's that the disagreement forces me to think about the tradeoff instead of rubber-stamping a plan. **Two agents in mild disagreement produce better decisions than one agent in confident agreement with itself.**
+
+{/* Diagram showing the loop: research → plan → second-agent review → reconcile → implement → scan */}
+<AgentWorkflowLoop />
+
+---
+
+## Step 4: Reconcile, Then Implement
+
+After the plans converge, or I pick a winner, I let the primary agent implement. This is where "vibe" actually earns its name — I'm not reading every line as it streams. I'm watching for shape. Is it touching the files I expect? Is it writing tests? Is the diff size in the ballpark I predicted?
+
+If something feels off while it's streaming, I stop it. Interrupting is cheap. Unwinding a bad 400-line diff is not.
+
+The heuristic I use: if the agent's doing something I didn't anticipate from the plan, that's a signal to pause, not a signal that it figured something out I missed. Sometimes it has. More often it's drifting.
+
+---
+
+## Step 5: `/simplify` When the Diff Gets Ugly
+
+Agents over-engineer. They add abstractions you didn't ask for, sprinkle in `try/except` blocks that swallow exceptions, write helper functions used in exactly one place, introduce an options dict "for flexibility."
+
+Claude Code ships with a `/simplify` command that does exactly what I want at this stage: review the diff, strip anything that isn't load-bearing, collapse abstractions used once, remove exception-swallowing try blocks, inline helpers that aren't reused. I didn't build it — it's built in — but it's the step in my workflow I lean on most heavily.
+
+Not every run improves things, but it reliably strips some of the noise without losing functionality. I run it whenever a diff becomes large or the code just feels heavier than the problem warrants.
+
+---
+
+## Custom Subagents
+
+Claude Code lets you define subagents with canned system prompts that live alongside your project. I've built a handful I use constantly:
+
+- **Reviewer** — reads a diff and plays senior-engineer-on-code-review. Pedantic by design.
+- **Planner** — takes a feature request and produces a plan with risks and assumptions called out explicitly.
+- **Simplifier** — a custom companion to Claude Code's `/simplify`, tuned to the patterns this codebase tends to over-engineer.
+- **Security Auditor** — tuned to the specific stack and risk patterns we actually care about, not a generic OWASP checklist.
+- **Bug Scanner** — looks for the specific failure patterns that keep showing up in postmortems.
+
+Here's roughly what my Security Auditor prompt looks like, to make this concrete:
+
+```text
+You are a security auditor reviewing a diff in a TypeScript/Rust
+service that runs on AWS.
+
+Look for:
+- Authentication or authorization gaps on new endpoints
+- Input validation missing on anything reaching a database, shell,
+  or downstream service
+- Secrets, credentials, or PII ending up in logs or error messages
+- Injection surfaces (SQL, command, template, prototype pollution)
+- IAM policies or role assumptions that are broader than the code needs
+- TOCTOU races in resource access
+- Unsafe deserialization
+
+Ignore:
+- Style, naming, performance (unless performance enables a DoS)
+- Theoretical attacks that assume the attacker already has the keys
+
+Output format:
+severity (high/medium/low) | file:line | specific issue | suggested fix
+
+One row per finding. No preamble, no summary.
+```
+
+The specificity is the point. A generic "look for security issues" prompt produces generic slop. A prompt that names your stack, lists the categories you actually care about, tells the agent what to ignore, and pins the output format produces findings you can triage in five minutes.
+
+Each subagent is a variation on this pattern: narrow scope, concrete output shape, explicit list of what to ignore.
+
+The payoff is twofold. First, I stop retyping the same meta-prompt fifteen times a day. Second — and this is the bigger win — each subagent enters the conversation *fresh*. No context bleed from the implementation agent, no recency bias toward the code that was just written, no sunk-cost attachment to the approach under review. They see the diff the way a reviewer in another timezone would: cold, without the story of how it got there.
+
+A good subagent is a fresh pair of eyes you can summon on demand. That's the whole game.
+
+---
+
+## Periodic Sweeps
+
+The per-task loop above is one rhythm. Here's the other: periodic sweeps across the whole codebase, run by the scanning subagents above, not tied to any particular feature.
+
+- **Security scan.** Auth issues, input validation gaps, secrets ending up in logs, injection surfaces, over-permissive IAM, things exposed that shouldn't be.
+- **Bug scan.** Off-by-one errors, null handling gaps, race conditions, resource leaks, retry logic that hammers a downstream when it's already unhappy.
+- **Refactoring scan.** Code smells, duplicated logic, dead code, anything that'll make the codebase harder to maintain in six months.
+
+These are slow and noisy. Most of what they flag isn't worth fixing, but enough of it is that the ratio earns its keep. It's the agentic equivalent of running every linter you own in paranoid mode, except the linter understands semantics.
+
+I usually run one of these on a Friday afternoon when I don't want to start something new but don't want to coast either.
+
+---
+
+## The Loop
+
+Zoom out and the whole thing is a loop: *research, pushback, plan, second opinion, reconcile, implement, simplify, scan.* Each step is cheap. None of them on its own catches everything. Stacked together, they catch most of what matters, and they do it fast enough that I'm still shipping faster than I would without the agent.
+
+The tools are a lever. The workflow is the fulcrum.
+
+Stay rigorous, keep the agent honest, and may your diffs stay small.
